@@ -1,0 +1,203 @@
+<%- include('../layouts/header.ejs') -%>
+
+<%- include('../layouts/userheader.ejs') -%>
+
+<!-- <section class="bg-img1 txt-center p-lr-15 p-tb-50" style="background-color:rgba(128, 0, 0, 0.521);">
+    <h2 class="ltext-105 cl0 txt-center">
+        My Account
+    </h2>
+</section>	 -->
+
+
+<section class="bg0 p-t-5 p-b-80">
+    <div class="container">
+        <!-- <div class="flex-w flex-tr" style="display: flex; justify-content: justify; align-items: center;"> -->
+        <div class="flex-w" style="display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap;">
+            <!-- <div class="size-210 bor10 p-lr-70 p-t-20 p-b-30 p-lr-15-lg w-full-md" style="background-color: rgba(209, 184, 184, 0.664); margin-top: 5%;width:70%"> -->
+                <div class="size-210 bor10 p-lr-15 p-tb-30 w-full" style="width: 100%; max-width: 800px; margin: 2%;background-color: rgba(209, 184, 184, 0.664);padding: 20px;">
+                <h1 class="mtext-105 cl2 txt-center p-b-10">
+                    Welcome <%= user.name %>
+                </h1>
+
+                <div class="m-b-2" style="display: flex; flex-direction: column; justify-content: center; align-items: center;"">
+                    <img src="userImages/<%= user.image%>" class="img-fluid rounded-circle text-center" alt="<%= user.image%>" width="70" height="50">
+                </div>
+
+                <table class="table table-bordered table-striped"" width="50%" style="background-color: white; color:maroon">
+                    
+                    <tr>
+                        <td>Email</td>
+                        <td><%= user.email%></td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>Mobile No.</td>
+                        <td><%= user.mobile%></td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>Verified</td>
+                        <td>
+                            <%if(user.is_verified == 1){
+                        %>
+                            <p>yes</p>
+                        <%
+                            }
+                        %>
+                        </td>
+                    </tr>
+                        <% if (address && address.length> 0) { %>
+                            <% for (let i=0; i < address.length; i++) { %>
+                                <tr>
+                                    <td>
+                                        <%= 'Address(' + address[i].addressType + ')' %>
+                                    </td>
+                                    <td>
+                                        <%= address[i].name %><br>
+                                        <%= address[i].addressLine %><br>
+                                        <%= address[i].street %><br>
+                                        <%= address[i].city %><br>
+                                        <%= address[i].state %><br>
+                                        <%= address[i].pin %><br>
+                                    </td>
+                                </tr>
+                                <% } %>
+                                    <% } else { %>
+                                        <tr>
+                                            <td colspan="2">No addresses available.</td>
+                                        </tr>
+                                        <% } %>
+                    
+                </table>
+
+                <br>
+                <a class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" id="logoutButton" href="/logout">
+                    Logout
+                </a>
+
+                
+        
+            </div>
+
+            
+                <!-- <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md" style="width:30%"> -->
+            <div class="size-212 p-lr-15-lg w-full" style="width: 100%; max-width: 400px; margin: 2%;">
+            
+                    
+                    <div class="flex-w w-full p-b-30">
+
+                        <div class="size-212 p-t-2">
+                            <button class="mtext-110 cl2 hov-btn2">
+                                <a href="/cart" style="color:maroon;text-decoration: underline;">Shopping Cart</a>
+                            </button>
+    
+                        </div>
+                    </div>
+                    
+                    <div class="flex-w w-full p-b-30">
+    
+                        <div class="size-212 p-t-2">
+                            <button class="mtext-110 cl2 hov-btn2">
+                                <a href="" style="color:maroon;text-decoration: underline;">WishList</a>
+                            </button>
+    
+                        </div>
+                    </div>
+    
+                    <div class="flex-w w-full p-b-30">
+    
+                        <div class="size-212 p-t-2">
+                            <button class="mtext-110 cl2 hov-btn2">
+                                <a href="/my-orders" style="color:maroon;text-decoration: underline;">Order History</a>
+                            </button>
+    
+                        </div>
+                    </div>
+    
+                    <div class="flex-w w-full p-b-30">
+    
+                        <div class="size-212 p-t-2">
+                            <button class="mtext-110 cl2 hov-btn2">
+                                <a href="/edit?id=<%=user._id%>" style="color:maroon;text-decoration: underline;">Edit Profile</a>
+                            </button>
+    
+                        </div>
+                    </div>
+                    
+                    <div class="flex-w w-full">
+                        <div class="size-212 p-b-30">
+                            <button class="mtext-110 cl2 hov-btn2">
+                                <a href="/add-address?id=<%=user._id%>" style="color:maroon;text-decoration: underline;">Add Address</a>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex-w w-full">
+                        <div class="size-212 p-b-30">
+                            <button id="mywallet" class="mtext-110 cl2 hov-btn2">
+                                <a href="" style="color:maroon;text-decoration: underline;">My Wallet</a>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex-w w-full">
+                        <div class="size-212 p-b-30">
+                            <button class="mtext-110 cl2 hov-btn2">
+                                <a href="/wallet-history" style="color:maroon;text-decoration: underline;">Wallet Transactions</a>
+                            </button>
+                        </div>
+                    </div>
+            
+            
+            
+            
+            </div>
+
+
+
+
+            
+                
+                
+            </div>
+        </div>
+    </div>
+</section>	
+<style>
+    @media (max-width: 768px) {
+    .size-210, .size-212 {
+        max-width: 100%; /* Occupy full width on smaller screens */
+        margin: 2% 0; /* Add margin top and bottom */
+    }
+}
+</style>
+
+<script>
+    document.getElementById('mywallet').addEventListener('click', function (event) {
+        event.preventDefault();
+        console.log('My Wallet jquery is loaded');
+        $.ajax({
+            type: 'GET',
+            url: '/my-wallet',
+            data: "",
+            dataType: 'json',
+            success: function (response) {
+              console.log('request to my wallet succeeded');
+              if (response.message) {
+
+                swal({
+                  title: response.message,
+                  text: "",
+                  icon: "info",
+                });
+              }
+            },
+            error: function (error) {
+              console.log('Error making AJAX request to wallet route:', error);
+            }
+        })
+    })
+</script>
+
+<%- include('../layouts/userfooter.ejs') -%>
+
+<%- include('../layouts/footer.ejs') -%>

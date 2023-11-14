@@ -1,0 +1,104 @@
+<%- include('../layouts/header.ejs') -%>
+
+<%- include('../layouts/userheader.ejs') -%>
+
+
+        <!-- <section class="bg0 p-b-116">
+            <div class="container-fluid">
+                <div class="d-flex flex-grow-1" style="display: flex; justify-content: center; align-items: center;">
+                    <div class="size-210 bor10 p-lr-30 p-t-20 p-b-70 p-lr-2-lg w-full-md"
+                        style="flex: 1; margin-left: 5%; margin-right: 5%;"> -->
+                        <section class="bg0 p-b-116">
+                            <div class="container-fluid">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8">
+
+
+                        <a href="/myprofile" style="color:maroon; text-decoration: underline;text-align: right;">Back to
+                            Profile</a>
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <% if (typeof message !=='undefined' ) { %>
+                                        <div class="alert alert-warning text-center" role="alert" id="invalidAlert">
+                                            <h2>
+                                                <%= message %>
+                                            </h2>
+                                        </div>
+                                        <% } %>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <table class="table table-striped table-responsive mt-5"
+                            style="flex: 1;width:100%; background-color:white;border: 1px solid #cecccc;">
+
+                            <tr style="background-color: rgba(209, 184, 184, 0.664); color: maroon;">
+                                <th class="serial">SNo.</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Type of Transaction</th>
+                                <th>Balance</th>
+
+                                <!-- <th colspan="5">Action</th> -->
+                            </tr>
+
+                            <% if(wallet.length>0){
+                                for(let i=0;i< wallet.length;i++){ %>
+                                    <tr>
+                                        <td style="padding-left: 1.5%;">
+                                            <%= i+1 %>
+                                        </td>
+                                        <td>
+                                            <%= new Date(wallet[i].createdAt).toLocaleDateString('en-US', {
+                                                year: 'numeric' , month: 'short' , day: 'numeric' , }) %>
+                                        </td>
+                                    
+                                        <td>
+                                            <% if (wallet[i].creditAmt > 0) { %>
+                                                <%= wallet[i].creditAmt %>
+                                            <% } else if (wallet[i].debitAmt > 0) { %>
+                                                <%= wallet[i].debitAmt %>
+                                            <% } else { %>
+                                                0 
+                                            <% } %>
+                                        </td>
+                                        <td>
+                                            <%= (wallet[i].creditAmt > 0) ? 'Credit' : 'Debit' %>
+                                        </td>
+                                        <td>
+                                            <%= wallet[i].walletBalance %>
+                                        </td>
+
+                                    </tr>
+                                    <% } %>
+
+
+
+
+                                        <% }else{ %>
+                                            <tr>
+                                                <td colspan="5">Transactions Not Found</td>
+                                            </tr>
+                                            <% } %>
+                        </table>
+
+
+                    </div>
+                </div>
+        </section>
+        <style>
+            @media (max-width: 768px) {
+                .col-lg-8 {
+                    width: 100%;
+                    /* Occupy full width on smaller screens */
+                }
+            }
+        </style>
+
+
+
+
+        <%- include('../layouts/userfooter.ejs') -%>
+            <%- include('../layouts/footer.ejs') -%>

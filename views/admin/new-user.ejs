@@ -1,0 +1,125 @@
+
+
+<%- include('../layouts/adminheader.ejs') -%>
+<!-- 
+<section class="bg-img1 txt-center p-lr-15 p-tb-50" style="background-color:rgba(128, 0, 0, 0.521);">
+    <h3 class="ltext-105 cl0 txt-center">
+        Add New User
+    </h3>
+</section>	 -->
+
+<!-- <section class="bg0 p-t-104 p-b-116"> -->
+    <div class="container">
+        <div class="flex-w flex-tr" style="display: flex; justify-content: center; align-items: center; margin: auto;">
+            <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md" style="background-color: rgba(209, 184, 184, 0.664); margin-top: 10%;">
+
+                
+                <h4 class="mtext-105 cl2 txt-center p-b-30">
+                    Enter User Details
+                </h4>
+
+                <%
+                    if(typeof message !== 'undefined'){
+
+                        %>
+                        <div class="alert alert-warning" role="alert" id="invalidAlert">
+                            <h5><%= message%></h5>
+                        </div>
+                        <%
+
+                    }
+
+                %>   
+                <br>
+                <form action="/admin/new-user" method="post" enctype="multipart/form-data">
+
+                    <label class="stext-111" for="name">Enter Name:</label>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="name" type="text" name="name" placeholder="Enter name" required>
+                    </div>
+
+                    <label class="stext-111" for="email">Enter Email Address:</label>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="email" type="email" name="email" placeholder="Enter Email" required>
+                    </div>
+
+                    <label class="stext-111" for="mobile">Enter Mobile No.:</label>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="mobile" type="text" name="mbno" placeholder="Enter Mobile Number" required>
+                    </div>
+
+
+                    <label class="stext-111" for="image">Choose Profile Picture:</label>
+                    <div class="bor8 m-b-20 how-pos4-parent bg9" style="display: flex; flex-direction: column; justify-content: center; align-items: center;"">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30 p-t-10" id="image" type="file" name="userImage" style="margin: auto;">
+                    </div>
+
+                    <label class="stext-111" for="password">Enter Password:</label>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="password" type="password" name="password" placeholder="Enter Password" required>
+                    </div>
+                    
+                    <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit" value="Add User">
+                        Add User
+                    </button>
+
+                </form>
+
+                <div class="container" style="display: flex; justify-content: space-between;">
+                    <a href="/admin/userlist" style="color:maroon">Back</a>
+                </div>
+
+
+                   
+            </div>
+ 
+        </div>
+    </div>
+</section>	
+
+
+
+
+<%- include('../layouts/footer.ejs') -%>
+
+<!-- <div class="text-center center-div border border-2 mt-3" id="login">
+        <div class="container">
+            <h1>Add New User</h1>
+            <br>
+
+            <form action="" method="post" enctype="multipart/form-data">
+                <input type="text" name="name" placeholder="Enter Name" required>
+                <br><br>
+                <input type="email" name="email" placeholder="Enter Email" required>
+                <br><br>
+                <input type="text" name="mbno" placeholder="Enter Mobile Number" required>
+                <br><br>
+                <input type="file" name="image">
+                <br><br>
+                <input type="password" name="password" placeholder="Enter Password" required>
+                <br><br>
+                <input type="submit" value="Add User">
+                
+            </form>
+
+
+            <%
+                if(typeof message !== 'undefined'){
+
+                    %>
+                    <div class="alert alert-warning" role="alert" id="invalidAlert">
+                        <h5><%= message%></h5>
+                    </div>
+                    <%
+
+                }
+
+            %>  
+            
+            
+
+
+            <a href="/admin/dashboard">Back</a> -->
+
+        <!-- </div>
+</div> -->

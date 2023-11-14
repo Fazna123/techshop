@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <% if (typeof product !== 'undefined') { %>
+
+        <%= product%>
+        <div class="container" style="height: 100vh">
+            <h1>Welcome</h1>
+            <h1 style="color:red"><%= product.name %></h1>
+            <h1 style="color:red"><%= product.category %></h1>
+            <h1 style="color:red"><%= product.brand %></h1>
+            <h1 style="color:red"><%= product.price %></h1>
+    
+            <% if (product.image && product.image.length > 0) { %>
+                <% for (let i = 0; i < product.image.length; i++) { %>
+                    <% if (product.image[i]) { %>
+                        <img src="/productImages/<%= product.image[i] %>">
+                    <% } %>
+                <% } %>
+            <% } %>
+        </div>
+        
+    <% } else { %>
+        <h4>No product data</h4>
+    <% } %>
+</body>
+</html>
+
+
+
+

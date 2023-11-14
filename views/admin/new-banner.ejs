@@ -1,0 +1,87 @@
+
+<%- include('../layouts/adminheader.ejs') -%>
+
+
+
+<div class="container" style="height: 100vh;">
+    <div class="flex-w flex-tr" style="display: flex; justify-content: center; align-items: center; margin: auto;">
+        <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md" style="background-color: rgba(209, 184, 184, 0.664); margin-top: 10%;">
+                
+            <h4 class="mtext-105 cl2 txt-center p-b-30">
+                    Enter Banner Details
+                </h4>
+            
+
+                <%
+                    if(typeof message !== 'undefined'){
+
+                        %>
+                        <div class="alert alert-warning" role="alert" id="invalidAlert">
+                            <h5><%= message%></h5>
+                        </div>
+                        <%
+
+                    }
+
+                %>   
+                <br>
+                
+                        <form action="/admin/add-banner" method="post" enctype="multipart/form-data">
+
+                            <label for="title" class="stext-111">Enter Banner Title:</label>
+                            <div class="bor8 m-b-20 how-pos4-parent">
+                                <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="title" type="text" name="title" placeholder="Enter title" required>
+                            </div>
+
+                            <label for="subtitle" class="stext-111">Enter Banner subtitle:</label>
+                            <div class="bor8 m-b-20 how-pos4-parent">
+                                <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="subtitle" type="text" name="subtitle" placeholder="Enter Subtitle">
+                            </div>
+
+                            <label for="url" class="stext-111">Enter URL:</label>
+                            <div class="bor8 m-b-20 how-pos4-parent">
+                                <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="url" type="text" name="url" value="/products?search=" placeholder="Enter url" required>
+                            </div>
+        
+        
+                            <label for="image" class="stext-111">Choose Banner Image:</label>
+                            <div class="bor8 m-b-20 how-pos4-parent bg9" style="display: flex; flex-direction: column; justify-content: center; align-items: center;"">
+                                <input id="image" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30 p-t-10" type="file" name="bannerImage" style="margin: auto;">
+                            </div>
+        
+                            
+                            <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit" value="Add Product">
+                                Add Banner
+                            </button>
+        
+                        </form>
+        
+                        <div class="container" style="display: flex; justify-content: space-between;">
+                            <a href="/admin/banner" style="color:maroon">Back</a>
+                        </div>
+                       
+
+               
+
+
+                   
+        </div>
+ 
+    </div>
+</div>
+
+
+
+
+
+<%- include('../layouts/footer.ejs') -%>
+
+
+
+
+
+
+
+
+
+<%- include('../layouts/footer.ejs') -%>

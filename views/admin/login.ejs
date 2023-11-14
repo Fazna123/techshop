@@ -1,0 +1,104 @@
+<%- include('../layouts/header.ejs') -%>
+
+<!-- <header class="header-v4">
+    
+        <div class="top-bar">
+            <div class="content-topbar flex-sb-m h-full container">
+                <a href="/admin" class="logo">
+                    <img src="/images/icons/whitelogo.webp" alt="IMG-LOGO">
+                </a>
+            </div>
+        </div>
+
+</header>
+                	
+<div class="container d-flex justify-content-between align-items-center p-lr-70" style="width: 100vh; height: auto;">
+    
+
+    <a class="navbar-brand h1 align-self-center font-weight-bold" href="/admin/dashboard" style="color: maroon; justify-content: space-between;">
+        Dashboard
+    </a>
+
+    <a href="/admin/adminprofile" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+        <i class="fa fa-fw fa-user mr-3"></i>
+    </a>
+        
+    
+</div> -->
+
+
+<header class="header-v4">
+    
+    <div class="top-bar">
+        <div class="content-topbar flex-sb-m h-full container">
+            <a href="/admin" class="logo">
+                <img src="/images/icons/whitelogo.webp" alt="IMG-LOGO">
+            </a>
+        </div>
+    </div>
+
+</header>
+
+    
+    
+<!-- <section class="bg-img1 txt-center p-lr-15 p-tb-50" style="background-color:rgba(134, 30, 30, 0.521);">
+    <h2 class="ltext-105 cl0 txt-center p-t-2">
+        Admin Login
+    </h2>
+</section> -->
+
+
+<section class="bg0 p-t-104 p-b-116" style="height: 100vh;">
+    <div class="container">
+        <div class="flex-w flex-tr" style="display: flex; justify-content: center; align-items: center; margin: auto;">
+            <div class="size-210 bor10 p-lr-70 p-t-30 p-b-70 p-lr-15-lg w-full-md" 
+            style="background-color: rgba(209, 184, 184, 0.664); margin-top: 10%; height: auto;">
+
+                <h4 class="mtext-105 cl2 txt-center p-b-30">
+                    Admin Login
+                </h4>
+
+                    <form action="" method="POST">
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="email" placeholder="Enter Email Address" required>
+                        </div>
+    
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="password" placeholder="Enter Password" required>
+                        </div>
+    
+                        <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit" value="Login">
+                            Login
+                        </button>
+
+                        
+                    </form>
+                    <br><br>
+
+
+                    <%
+                        if(typeof message !== 'undefined'){
+
+                            %>
+                            <div class="alert alert-warning" role="alert" id="invalidAlert">
+                                <h5><%= message%></h5>
+                            </div>
+                            <%
+
+                        }
+
+                    %>
+
+                    <div class="container" style="display: flex; justify-content: space-between;">
+                        <a href="/admin/forget-admin" style="color:maroon">Forget Password</a>
+
+                        <a href="/login" style="color:maroon; justify-self:end;;">User Login</a>
+                    </div>
+
+        </div>
+ 
+    </div>
+</div>
+</section>	
+<%- include('../layouts/footer.ejs') -%>

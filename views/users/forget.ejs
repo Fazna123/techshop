@@ -1,0 +1,59 @@
+<%- include('../layouts/header.ejs') -%>
+
+<%- include('../layouts/loginheader.ejs') -%>
+
+
+<!-- <section class="bg-img1 txt-center p-lr-15 p-tb-50" style="background-color:rgba(128, 0, 0, 0.521);">
+    <h2 class="ltext-105 cl0 txt-center">
+      Forget Password
+    </h2>
+</section> -->
+
+<section class="bg0 p-t-50 p-b-116">
+    <div class="container" style="height: 100vh;">
+        <div class="flex-w flex-tr" style="display: flex; justify-content: center; align-items: center; margin: auto;">
+            <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md" style="background-color: rgba(209, 184, 184, 0.664); margin-top: 10%;">
+                            <h4 class="mtext-105 cl2 txt-center p-b-30">
+                               Enter your mail address
+                            </h4> 
+
+                            
+                            <br>
+
+                            <form action="/forget" method="post" autocomplete="off">
+
+
+                                <div class="bor8 m-b-20 how-pos4-parent">
+                                    <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="email" placeholder="Enter email" required>
+                                </div>
+
+                                <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit" value="Send Reset Link">
+                                    Send Reset Link
+                                </button>
+                                
+                            </form>
+
+                            <br>
+                            <%
+                                if(typeof message !== 'undefined'){
+
+                                    %>
+                                    <div class="alert alert-warning" role="alert" id="invalidAlert">
+                                        <h5><%= message%></h5>
+                                    </div>
+                                    <%
+
+                                }
+
+                            %>   
+                            
+
+ 
+                        </div>
+                </div>
+        </div>
+
+</section>	
+
+<%- include('../layouts/userfooter.ejs') -%>
+<%- include('../layouts/footer.ejs') -%>

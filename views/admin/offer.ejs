@@ -1,0 +1,181 @@
+<%- include('../layouts/adminheader.ejs') -%>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow-x: auto;
+        /* Enable horizontal scroll on smaller screens */
+        margin-left: 0px; /* Adjust the left margin */
+        margin-right: 0px; /*Adjust the right margin */ 
+    }
+
+    th,
+    td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        /* Ensure header is on top with a white background */
+    }
+
+    /* Define responsive font sizes for better readability on smaller screens */
+    @media (max-width: 768px) {
+        table {
+            font-size: 12px;
+            /* Adjust font size as needed */
+        }
+
+        th {
+            display: none;
+            /* Hide thead on small screens */
+        }
+
+        td {
+            display: block;
+            /* Display td as block elements on small screens */
+            width: 100%;
+        }
+        button.stext-101 {
+            font-size:x-small;
+            width:100%;
+        }
+
+        button.stext-101:hover {
+            background-color: #e74c3c; /* Change button color on hover */
+        }
+    }
+</style>
+    <div class="col-lg-10 col-md-12">
+
+        <div class="container-fluid">
+            <div class="d-flex flex-grow-1" style="display: flex; justify-content: center; align-items: center;">
+                <div class="size-210 bor10 p-t-55 p-b-70 w-full-md"
+                    style="flex: 1; margin-left: 10%; margin-right: 10%;">
+
+                    <button class="stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer"
+                        style="flex-shrink: 0; width:30%; margin-left:30%;">
+                        <a href="/admin/new-offer" style="text-decoration: none; color: white;">Add New Offer</a>
+                    </button>
+                    <br><br>
+                    <% if(typeof message !=='undefined' ){ %>
+                        <script>
+                            // Display a window alert with the message
+                            window.alert("<%= message %>");
+                        </script>
+                        <% } %>
+
+                       <div class="overflow-x:auto">
+                            <table class="table table-striped mt-5"
+                                style="flex: 1;width:100%; background-color:white;border: 1px solid #cecccc;">
+
+                                <tr style="background-color: rgba(209, 184, 184, 0.664); color: maroon;">
+                                    <!-- <th class="serial">SNo.</th> -->
+                                    <th>Offer Name</th>
+                                    <th>Offer Item</th>
+                                    <th>Item Name</th>
+                                    <th>Offer Type</th>
+                                    <th>Offer Value</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+
+
+                                <% offers.forEach(function(offer) { %>
+                                    <tr>
+
+                                        <td>
+                                            <%= offer.offerName %>
+                                        </td>
+                                        <td>
+                                            <%= offer.offerItem==='product' ? 'Product' : 'Category' %>
+                                        </td>
+                                        <td>
+                                            <%= offer.offerItem==='product' ? offer.selectedProduct.name :
+                                                offer.selectedCategory.name %>
+                                        </td>
+                                        <td>
+                                            <%= offer.offerType==='percentage' ? 'Percentage Off' : 'Fixed Amount Off'
+                                                %>
+                                        </td>
+                                        <td>
+                                            <%= offer.offerValue %>
+                                        </td>
+                                        <td>
+                                            <% if(offer.is_cancelled===0){ %>
+                                                <p style="color:green">Active</p>
+
+                                                <% }else{ %>
+                                                    <p style="color:red">Cancelled</p>
+                                                    <% } %>
+                                        </td>
+
+
+                                        <td>
+                                            <% if (offer.is_cancelled===0) { %>
+                                                <button type="button" class="btn btn-primary">
+                                                    <a style="color:white;font-weight:bold;"
+                                                        href="/admin/apply-offer?id=<%= offer._id %>">Apply</a>
+                                                </button>
+                                                <% } else { %>
+                                                    <button type="button" class="btn btn-primary" disabled>
+                                                        Apply
+                                                    </button>
+                                                    <% } %>
+                                        </td>
+
+                                        <td>
+                                            <!-- <a href="/admin/cancel-offer?id=<%=offer._id%>" style="color:blue;text-decoration: underline;">Cancel</a> -->
+                                            <% if (offer.is_cancelled===0) { %>
+                                                <a href="/admin/cancel-offer?id=<%= offer._id %>" class="btn btn-danger"
+                                                    style="font-weight: bold;">Cancel</a>
+                                                <% } else if (offer.is_cancelled===1) { %>
+                                                    <a href="/admin/activate-offer?id=<%= offer._id %>"
+                                                        class="btn btn-success" style="font-weight: bold;">Activate</a>
+                                                    <% } %>
+                                        </td>
+                                        <td>
+                                            <a href="/admin/delete-offer?id<%= offer._id %>" class="btn btn-danger"
+                                                style="font-weight: bold;">Delete</a>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <% }); %>
+
+
+
+
+                            </table>
+                       </div>
+                            
+
+                            <div class="container" style="display: flex; justify-content: space-between;"></div>
+
+                            <a href="/admin/dashboard"
+                                style="color:maroon; justify-self: end; text-decoration: underline;">Back</a>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    </div>
+    </div>
+    </section>
+    </div>
+
+
+    <%- include('../layouts/footer.ejs') -%>

@@ -1,0 +1,143 @@
+<%- include('../layouts/adminheader.ejs') -%>
+<div class="col-lg-10 col-md-12">
+    <div class="container-fluid">
+    <!-- <section class="bg0 p-t-104 p-b-116"> -->
+    <!-- <div class="container"> -->
+        <div class="flex-w flex-tr" style="display: flex; justify-content: center; align-items: center; margin: auto;">
+            <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md"
+                style="background-color: rgba(209, 184, 184, 0.664); margin-top: 10%;">
+
+
+                <h4 class="mtext-105 cl2 txt-center p-b-30">
+                    Enter Offer Details
+                </h4>
+
+                <br>
+                <form action="/admin/new-offer" method="post">
+
+                    <div class="bor8 m-b-20 how-pos4-parent d-flex flex-inline size-116"
+                        style="justify-content: space-between;">
+                        <div class="d-flex flex-inline" style="justify-content: space-between;">
+                            <input type="radio" name="offerItem" value="product" id="productOffer"
+                                onchange="toggleSelection()">
+                            <label class="stext-111 m-l-10 p-l-20 p-r-30 p-t-12 p-b-10" for="productOffer">Product
+                                Offer</label>
+                        </div>
+                        <div class="d-flex flex-inline" style="justify-content: space-between;">
+                            <input type="radio" name="offerItem" value="category" id="categoryOffer"
+                                onchange="toggleSelection()">
+                            <label class="stext-111 m-l-10 p-l-20 p-r-30 p-t-12 p-b-10" for="categoryOffer">Category
+                                Offer</label>
+                        </div>
+                    </div>
+
+
+
+                    <div id="productSelect" style="display: none;">
+                        <label class="stext-111" for="selectedProduct">Select a Product:</label>
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <select name="selectedProduct" id="selectedProduct"
+                                class="stext-111 cl2 plh3 size-116 p-l-32 p-r-30">
+                                <option value="">Select a product</option>
+                                <% for (const product of products) { %>
+                                    <option value="<%=product._id %>">
+                                        <%= product.name %>
+                                    </option>
+                                    <% } %>
+                            </select>
+                        </div>
+                    </div>
+
+
+
+
+                    <div id="categorySelect" style="display: none;">
+                        <label class="stext-111" for="selectedCategory">Select a Category:</label>
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <select name="selectedCategory" id="selectedCategory"
+                                class="stext-111 cl2 plh3 size-116 p-l-32 p-r-30">
+                                <option value="">Select a category</option>
+                                <% for (const category of categories) { %>
+                                    <option value="<%= category._id %>">
+                                        <%= category.name %>
+                                    </option>
+                                    <% } %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <label class="stext-111" for="offerType">Offer Type:</label>
+                    <div class="bor8 m-b-10 how-pos4-parent">
+                        <select name="offerType" id="offerType" class="stext-111 cl2 plh3 size-116 p-l-32 p-r-30">
+                            <option value="percentage">Percentage Off</option>
+                            <option value="fixed">Fixed Amount Off</option>
+                        </select>
+                    </div>
+
+                    <label class="stext-111" for="offerName">Offer Name:</label>
+                    <div class="bor8 m-b-10 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="offerName"
+                            id="offerName">
+                    </div>
+
+
+                    <label class="stext-111" for="offerValue">Offer Value:</label>
+                    <div class="bor8 m-b-10 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="number" name="offerValue"
+                            id="offerValue" oninput="validatePositiveNumber(this)">
+                    </div>
+
+                    <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer"
+                        type="submit" value="Add Offer">
+                        Add Offer
+                    </button>
+                    <!-- <input type="submit" value="Add Offer"> -->
+                </form>
+
+
+
+
+
+
+                <div class="container" style="display: flex; justify-content: space-between;">
+                    <a href="/admin/dashboard" style="color:maroon">Back</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </section>
+</div>
+	
+    <script>
+        function toggleSelection() {
+            const offerItem = document.querySelector('input[name="offerItem"]:checked').value;
+            const productSelect = document.getElementById('productSelect');
+            const categorySelect = document.getElementById('categorySelect');
+
+            if (offerItem === 'product') {
+                productSelect.style.display = 'block';
+                categorySelect.style.display = 'none';
+            } else {
+                productSelect.style.display = 'none';
+                categorySelect.style.display = 'block';
+            }
+        }
+    </script>
+    <script>
+        function validatePositiveNumber(input) {
+            // Remove any non-numeric characters and leading zeros
+            input.value = input.value.replace(/[^0-9]/g, '');
+
+            // Ensure the value is a positive number
+            let number = parseInt(input.value, 10);
+            if (isNaN(number) || number < 0) {
+                input.value = '';
+            }
+        }
+    </script>
+
+
+
+
+    <%- include('../layouts/footer.ejs') -%>

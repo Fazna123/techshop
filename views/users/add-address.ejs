@@ -1,0 +1,167 @@
+<%- include('../layouts/header.ejs') -%>
+<%- include('../layouts/userheader.ejs') -%>
+
+<!-- <section class="bg0 p-t-10 p-b-10">
+
+    <div class="container"> -->
+<section class="bg0 p-t-0 p-b-150">
+            <div class="container" style="height: 100vh;">
+                <div class="flex-w flex-tr" style="display: flex; justify-content: center; align-items: center; margin: auto;">
+                    <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md bor21" style="background-color: rgba(209, 184, 184, 0.664); margin-top: 10%;">
+
+                        <h4 class="mtext-105 cl2 txt-center p-b-30">
+                            Enter your Address Details
+                        </h4>
+
+                        <% if(typeof message !=='undefined' ){ %>
+                            <div class="alert alert-warning" role="alert" id="invalidAlert">
+                                <h5>
+                                    <%= message%>
+                                </h5>
+                            </div>
+                        <% } %>
+                
+                        <form class="well form-horizontal" action="/add-address" method="post" id="contact_form">
+                            <fieldset>
+                        
+                        
+                                <div class="form-group">
+                                    <label class="control-label">Select Address Type</label>
+                                    <div class="col-sm-12 selectContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-send"></i></span>
+                                            <select name="addressType" class="form-control selectpicker">
+                                                <option value=" ">Please select the address type</option>
+                                                <option>Home</option>
+                                                <option>Office</option>
+                                                <option>Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <div class="form-group">
+                                    <label class="control-label">Name</label>
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input name="name" placeholder="First Name" class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                        
+                        
+                                <!-- Text input-->
+                        
+                                <div class="form-group">
+                                    <label class="control-label">Address</label>
+                                    <div class="col-sm-12 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                            <input name="addressLine" placeholder="Address" class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Text input-->
+                        
+                                <div class="form-group">
+                                    <label class="control-label">Street</label>
+                                    <div class="col-sm-12 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                            <input name="street" placeholder="Street" class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <!-- Text input-->
+                        
+                                <div class="form-group">
+                                    <label class="control-label">City</label>
+                                    <div class="col-sm-12 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                            <input name="city" placeholder="city" class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <!-- Select Basic -->
+                        
+                                <div class="form-group">
+                                    <label class="control-label">State</label>
+                                    <div class="col-sm-12 selectContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-list"></i></span>
+                                            <select name="state" class="form-control selectpicker">
+                                                <option value=" ">Please select your state</option>
+                                                <option>Kerala</option>
+                                                <option>Karnataka</option>
+                                                <option>Tamil Nadu</option>
+                                                <option>Delhi</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <!-- Text input-->
+                        
+                                <div class="form-group">
+                                    <label class="control-label">Pin Code</label>
+                                    <div class="col-sm-12 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                            <input name="pin" placeholder="Pin Code" class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                            
+                                <!-- Button -->
+                                <div class="form-group p-b-5">
+                                    <label class="control-label"></label>
+                                    <div class="col-sm-12">
+                                        <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 pointer" type="submit"
+                                            value="Submit">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+
+                                
+
+
+                        
+                            </fieldset>
+                        </form>
+
+                        <div class="container" style="display: flex; justify-content: space-between;">
+                            <a href="/myprofile" style="color:maroon">Back</a>
+                        </div>
+                    </div>
+                </div>
+                
+        
+    </div>
+            
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%- include('../layouts/userfooter.ejs') -%>
+<%- include('../layouts/footer.ejs') -%>

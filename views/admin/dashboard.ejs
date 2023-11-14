@@ -1,0 +1,515 @@
+<%- include('../layouts/adminheader.ejs') -%>
+
+
+
+
+
+    <!-- <section class="bg0 p-t-104 p-b-116" style="height: fit-content;"> -->
+    <!-- <div class="container-fluid" style="width:auto; margin-left: 15%;"> -->
+    <!-- <div class="container-fluid" style="display: flex; flex-direction: column; flex-grow: 1; width:100%;"> -->
+
+    <!-- ----------------------------------------------------------fhgkjg ------------------------------------------------------------------->
+
+
+    <div class="col-lg-10 col-md-12">
+        <div class="container-fluid">
+            <!-- Content -->
+            <div class="content m-b-0">
+                <!-- Animated -->
+                <!-- <div class="animated fadeIn"> -->
+                <!-- Widgets  -->
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-1">
+                                        <i class="pe-7s-cash"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left">
+                                            <div class="stat-text">₹<span>
+                                                    <%= revenue %>
+                                                </span></div>
+                                            <div class="stat-heading">Total Revenue</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-2">
+                                        <i class="pe-7s-cart"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span>
+                                                    <%= orderCount %>
+                                                </span></div>
+                                            <div class="stat-heading">Orders Recieved</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-3">
+                                        <i class="pe-7s-browser"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span>
+                                                    <%= productCount %>
+                                                </span></div>
+                                            <div class="stat-heading">Total Products</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-4">
+                                        <i class="pe-7s-users"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span>
+                                                    <%= userCount %>
+                                                </span></div>
+                                            <div class="stat-heading">Total Users</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Widgets -->
+                <!--  Traffic  -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- <div class="card"> -->
+                        <!-- <div class="card-body">
+                            
+                        </div> -->
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <!-- <canvas id="TrafficChart"></canvas>   -->
+                                        <h4 class="box-title">Sales Chart</h4>
+                                        <canvas id="areaChart" width="400" height="233"></canvas>
+
+                                        <!-- <canvas id="myChart" width="400" height="200"></canvas> -->
+                                        <!-- <div id="traffic-chart" class="traffic-chart"></div> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="mb-3 text-center">Current Week Revenue(INR)</h4>
+                                        <canvas id="weekChart"></canvas>
+
+                                    </div> <!-- /.card-body -->
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="mb-3 text-center">Current Week Order Count</h4>
+                                        <canvas id="weekOrderChart"></canvas>
+
+                                    </div> <!-- /.card-body -->
+                                </div>
+                            </div>
+                        </div> <!-- /.row -->
+
+                    </div><!-- /# column -->
+                </div>
+
+
+
+
+
+            </div>
+
+            <!-- Content -->
+            <div class="content m-t-0">
+                <!-- <div class="animated fadeIn"> -->
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">Payment Method</h4>
+                                <canvas id="myChart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-lg-12"> -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">Product Quantity</h4>
+                                <canvas id="piechart"></canvas>
+                            </div>
+
+                        </div>
+                        <!-- </div>/# column -->
+
+                    </div><!-- /# column -->
+
+
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">Payment Sales Chart</h4>
+                                <canvas id="linechart"></canvas>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="calendarView"></div>
+                            </div>
+                        </div>
+                    </div><!-- /# column -->
+
+                    <div class="col-lg-6">
+
+                    </div>
+
+
+
+
+
+
+
+
+                </div>
+
+                <!-- </div>.animated -->
+            </div>
+            <!-- /.content -->
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+    </div>
+    </div>
+    </section>
+    </div>
+
+
+
+
+
+
+    <script>
+        // Payment Method vs order count
+        fetch('/admin/line-chart')
+            .then(response => response.json())
+            .then(chartData => {
+
+                const ctx = document.getElementById('myChart').getContext('2d');
+
+
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: chartData.labels,
+                        datasets: [{
+                            label: 'Order Counts',
+                            data: chartData.data,   // Order counts
+                            fill: true,
+                            backgroundColor: 'rgba(128, 0, 128, 0.2)',
+                            borderColor: 'rgba(128, 0, 128, 0.8)',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    </script>
+
+    <script>
+        fetch('/admin/area-chart')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(chartData => {
+                if (!chartData || !chartData.labels || !chartData.datasets) {
+                    throw new Error('Invalid chart data format');
+                }
+
+                const ctx = document.getElementById('areaChart').getContext('2d');
+
+                const colors = {
+                    'Pending': { borderColor: 'teal', backgroundColor: 'rgba(0, 128, 128, 0.2)' },
+                    'Processing': { borderColor: 'purple', backgroundColor: 'rgba(128, 0, 128, 0.2)' },
+                    'Shipped': { borderColor: 'orange', backgroundColor: 'rgba(255, 165, 0, 0.2)' },
+                    'Delivered': { borderColor: 'blue', backgroundColor: 'rgba(0, 0, 255, 0.2)' },
+                    'Returned': { borderColor: 'red', backgroundColor: 'rgba(255, 0, 0, 0.2)' },
+                };
+
+                const datasets = chartData.datasets.map(dataset => ({
+                    label: dataset.label, // Order status
+                    data: dataset.data,   // Order counts
+                    fill: true,
+                    borderColor: colors[dataset.label].borderColor,
+                    backgroundColor: colors[dataset.label].backgroundColor,
+                    borderWidth: 2,
+                }));
+
+                // Create the area chart
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: chartData.labels, // Months
+                        datasets: datasets
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => {
+                console.log('Error fetching data:', error);
+            });
+    </script>
+
+
+
+    <script>
+        //......Category Wise Product Count..............................................................................
+        fetch('/admin/pie-chart')
+            .then(response => response.json())
+            .then(chartData => {
+                const ctx = document.getElementById('piechart').getContext('2d');
+
+                var piechart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: chartData.labels, // Category names
+                        datasets: [{
+                            data: chartData.data, // Category counts
+                            backgroundColor: getRandomColors(chartData.labels.length), // Generate random colors
+                            borderWidth: 1.5
+                        }]
+                    },
+                    options: {
+                        responsive: true
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+
+        // Function to generate an array of random colors
+        function getRandomColors(count) {
+            const colors = [];
+            for (let i = 0; i < count; i++) {
+                colors.push('#' + Math.floor(Math.random() * 16777215).toString(16));
+            }
+            console.log(colors);
+            return colors;
+        }
+    </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendarView');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth', // Choose the initial view
+                //height: '100%', // Change the height to your desired value
+                aspectRatio: 2,
+                events: [
+                    // Your calendar events data here
+                ]
+            });
+
+            calendar.render();
+        });
+    </script>
+
+
+
+    <script>
+        fetch('/admin/bar-chart')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(chartData => {
+                if (!chartData || !chartData.labels || !chartData.datasets) {
+                    throw new Error('Invalid chart data format');
+                }
+
+                const ctx = document.getElementById('linechart').getContext('2d');
+
+                const colors = {
+                    'COD': { borderColor: 'teal', backgroundColor: 'rgba(0, 128, 128, 0.2)' },
+                    'razorpay': { borderColor: 'purple', backgroundColor: 'rgba(128, 0, 128, 0.2)' },
+                    'wallet': { borderColor: 'orange', backgroundColor: 'rgba(255, 165, 0, 0.2)' },
+
+                };
+
+                const datasets = chartData.datasets.map(dataset => ({
+                    label: dataset.label, // Order status
+                    data: dataset.data,   // Order counts
+                    fill: true,
+                    borderColor: colors[dataset.label].borderColor,
+                    backgroundColor: colors[dataset.label].backgroundColor,
+                    borderWidth: 1.5,
+                }));
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.labels,
+                        datasets: datasets
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => {
+                console.log('Error fetching data:', error);
+            });
+    </script>
+
+
+    <script>
+        //week chart
+        // In your dashboard JavaScript code
+        fetch('/admin/week-earnings')
+            .then(response => response.json())
+            .then(chartData => {
+                const ctx = document.getElementById('weekChart').getContext('2d');
+
+                // Create the line chart
+                new Chart(ctx, {
+                    type: 'line',
+                    data: chartData,
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Earnings(INR)'
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+
+
+
+        // Fetch and render the weekly order counts by payment method chart
+        fetch('/admin/week-ordercount')
+            .then(response => response.json())
+            .then(chartData => {
+                const ctx = document.getElementById('weekOrderChart').getContext('2d');
+
+                new Chart(ctx, {
+                    type: 'bar', // You can choose the chart type (e.g., bar, line, etc.)
+                    data: chartData,
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Payment Method'
+                                }
+                            },
+
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Count'
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching weekly order counts chart:', error);
+            });
+
+    </script>
+
+
+
+
+    <!-- <%- include('../layouts/adminfooter.ejs') -%> -->
+    <%- include('../layouts/adminfooter.ejs')-%>

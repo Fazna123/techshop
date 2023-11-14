@@ -1,0 +1,83 @@
+<%- include('../layouts/header.ejs') -%>
+
+<%- include('../layouts/loginheader.ejs') -%>
+
+<!-- <section class="bg-img1 txt-center p-lr-15 p-tb-50" style="background-color:rgba(128, 0, 0, 0.521);">
+    <h2 class="ltext-105 cl0 txt-center">
+        Sign Up to Shop
+    </h2>
+</section>	 -->
+
+<section class="bg0 p-t-20 p-b-116">
+    <div class="container" style="height: 100vh;">
+        <div class="flex-w flex-tr" style="display: flex; justify-content: center; align-items: center; margin: auto;">
+            <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md" style="background-color: rgba(209, 184, 184, 0.664); margin-top: 10%;">
+
+                <h4 class="mtext-105 cl2 txt-center p-b-30">
+                    User Registration Form
+                </h4>
+            
+
+                <%
+                    if(typeof message !== 'undefined'){
+
+                        %>
+                        <div class="alert alert-warning" role="alert" id="invalidAlert">
+                            <h5><%= message%></h5>
+                        </div>
+                        <%
+
+                    }
+
+                %>   
+                <br>
+                <form action="/register" method="post" enctype="multipart/form-data">
+
+                    <label class="stext-111">Name:</label>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="name" placeholder="Enter name" required>
+                    </div>
+
+                    <label class="stext-111">Email:</label>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="email" placeholder="Enter email" required>
+                    </div>
+
+                    <label class="stext-111">Mobile No.:</label>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="mbno" placeholder="Enter Mobile" required>
+                    </div>
+
+                    <label class="stext-111">Choose Profile Picture:</label>
+                    <div class="bor8 m-b-20 how-pos4-parent bg9" style="display: flex; flex-direction: column; justify-content: center; align-items: center;"">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30 p-t-10" type="file" name="userImage" style="margin: auto;">
+                    </div>
+
+                    <label class="stext-111">Password:</label>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="password" placeholder="Enter Password" required>
+                    </div>
+
+                    <label class="stext-111">Referral Code(Optional):</label>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="referralCode" placeholder="Enter Referral Code(optional)">
+                    </div>
+                    
+                    <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit" value="Register">
+                        Register
+                    </button>
+
+                </form>
+
+
+                   
+        </div>
+ 
+    </div>
+</div>
+</section>	
+
+
+<%- include('../layouts/userfooter.ejs') -%>
+
+<%- include('../layouts/footer.ejs') -%>

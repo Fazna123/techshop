@@ -1,0 +1,250 @@
+<%- include('../layouts/header.ejs') -%>
+
+<%- include('../layouts/adminheader.ejs') -%>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow-x: auto;
+        /* Enable horizontal scroll on smaller screens */
+        margin-left: 0px; /* Adjust the left margin */
+        margin-right: 0px; /*Adjust the right margin */ 
+    }
+
+    th,
+    td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        /* Ensure header is on top with a white background */
+    }
+
+    /* Define responsive font sizes for better readability on smaller screens */
+    @media (max-width: 768px) {
+        table {
+            font-size: 12px;
+            /* Adjust font size as needed */
+        }
+
+        th {
+            display: none;
+            /* Hide thead on small screens */
+        }
+
+        td {
+            display: block;
+            /* Display td as block elements on small screens */
+            width: 100%;
+        }
+        button.stext-101 {
+            font-size:x-small;
+            width:100%;
+        }
+
+        button.stext-101:hover {
+            background-color: #e74c3c; /* Change button color on hover */
+        }
+        
+        .d-flex > * {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .dropdown-toggle {
+            width: 100%;
+            padding: 8px 16px;
+        }
+
+        .dropdown-menu a {
+            width: 100%;
+            padding: 10px;
+        }
+
+        button.stext-101.export-excel {
+            display: none; /* Hide the export excel button on smaller screens */
+        }
+
+        /* Show only PDF button on smaller screens */
+        button.stext-101.pdf {
+            display: block !important;
+            width: 100% !important;
+        }
+        #datepicker,
+        button.btn-primary:not(.dropdown-toggle) {
+            display: none;
+        }
+    }
+</style>
+
+
+<div class="col-lg-10 col-md-12">
+<!-- <section class="bg0 p-t-104 p-b-116"> -->
+    <!-- <section class="bg0 p-b-116"> -->
+        <div class="container-fluid">
+            <div class="d-flex flex-grow-1" style="display: flex; justify-content: center; align-items: center;">
+                <div class="size-210 bor10 p-lr-10 p-t-20 p-b-70 p-lr-2-lg w-full-md" style="flex: 1; margin-left: 5%; margin-right: 5%;">
+        
+                    <div class="container-fluid d-flex" style="justify-content: space-between;">
+                        <input class="calender" type="text" id="datepicker" placeholder="Select a date" class="cl2 p-l-5 p-r-5 p-t-5 p-b-5">
+                        <button class="btn btn-primary" onclick="filterByDate()" style="font-weight:bold">Apply</button>
+                    
+                            <div class="dropdown" style="display: inline-block;">
+                              <button class="btn btn-primary dropdown-toggle" type="button" id="statusDropdown" 
+                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-weight:bold;margin-left: 10%; padding-top: 7%;padding-bottom: 7%;">
+                                Filter by Period
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="statusDropdown">
+                                <a class="dropdown-item" href="/admin/sales-report-weekly">Last 7 Days</a>
+                                <a class="dropdown-item" href="/admin/sales-report-this-month">This Month</a>
+                                <a class="dropdown-item" href="/admin/sales-report-last-two-months">Last 2 Months</a>
+                                
+                              </div>
+                            </div>
+                        
+                        <div class="container-fluid d-flex" style="justify-content:end;">
+                            <button class="stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-5 trans-04 pointer export-excel"
+                                style="flex-shrink: 0; width:18%; margin-right:1%;">
+                                <a href="/admin/export-excel" style="text-decoration: none; color: white;">Export Excel</a>
+                            </button>
+                    
+                            <button class="stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-5 trans-04 pointer pdf"
+                                style="flex-shrink: 0; width:20%;">
+                                <a href="/admin/download-pdf-salesreport" style="text-decoration: none; color: white;">Download PDF</a>
+                            </button>
+                    
+                        </div>
+                    </div>
+                    <div class="overflow-x:auto;">
+                    <table class="table table-striped mt-5" width="30%" style="flex: 1;width:100%; background-color:white;border: 1px solid #cecccc;">
+        
+                        <tr style="background-color: rgba(209, 184, 184, 0.664); color: maroon;">
+                                    <th class="serial">SNo.</th>
+                                    <th>Date</th>
+                                    <th>Invoice ID</th>
+                                    <th>Customer Name</th>
+                                    <th>Payment Method</th>
+                                    <th>Amount</th>
+                                    <!-- <th>Order Status</th> -->
+                                    
+                                    
+                                </tr>
+        
+                                <% if(order.length>0){
+                                    for(let i=0;i< order.length;i++){ %>
+                                        <tr>
+                                            <td style="padding-left: 1.5%;"><%= i+1 %></td>
+                                            <td>
+                                                <%= new Date(order[i].createdAt).toLocaleDateString('en-US', {
+                                                    year: 'numeric',
+                                                    month: 'short',
+                                                    day: 'numeric',
+                                                  }) %>
+                                            </td>
+                                            <td>
+                                                <%= order[i].orderSerialNumber %>
+                                            </td>
+                                            <td>
+                                                <%= order[i].userName%>
+                                            </td>
+        
+                                            <td>
+                                                <%= order[i].paymentMethod %>
+                                            </td>
+                                            <td>
+                                                <%= order[i].amountPayable %>
+                                            </td>
+                                            <!-- <td>
+                                                <% if (order[i].orderStatus === 'Cancelled' || order[i].orderStatus === 'Returned') { %>
+                                                  <span style="color: red;"><%= order[i].orderStatus %></span>
+                                                <% } else if (order[i].orderStatus === 'Delivered') { %>
+                                                  <span style="color: green;"><%= order[i].orderStatus %></span>
+                                                <% } else if (order[i].orderStatus === 'Processing') { %>
+                                                    <span style="color: rgba(255, 153, 0, 0.993);"><%= order[i].orderStatus %></span>
+                                                <% } else if (order[i].orderStatus === 'Shipped') { %>
+                                                    <span style="color: purple;"><%= order[i].orderStatus %></span>
+                                                <% } else { %>
+                                                  <span style="color: blue;"><%= order[i].orderStatus %></span>
+                                                <% } %>
+                                            </td> -->
+                                            
+                                            
+                                                                                         
+                                        </tr>
+                                        <% } %>
+        
+        
+        
+                                            <% }else{ %>
+                                                <tr>
+                                                    <td colspan="5">Orders Not Found</td>
+                                                </tr>
+                                        <% } %>
+                                
+                        </table>
+                    </div>
+                        
+        
+                    </div>
+                </div>
+            </section>
+</div>
+</div>
+</section>	
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<!-- <script>
+    let selectedDate;
+  
+    document.addEventListener('DOMContentLoaded', function () {
+      const datepicker = flatpickr("#datepicker", {
+        dateFormat: "Y-m-d",
+        onChange: function (selectedDates, dateStr) {
+          selectedDate = dateStr;
+        },
+      });
+    });
+  
+    function filterByDate() {
+      if (selectedDate) {
+        window.location.href = `/admin/sales-report-daily?selectedDate=${selectedDate}`;
+      } else {
+        alert('Please select a date first.');
+      }
+    }
+  </script> -->
+<script>
+    let selectedStartDate;
+    let selectedEndDate;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const datepicker = flatpickr("#datepicker", {
+            mode: "range",
+            dateFormat: "Y-m-d",
+            onChange: function (selectedDates, dateStr) {
+                if (selectedDates.length === 2) {
+                    selectedStartDate = dateStr.split(" to ")[0];
+                    selectedEndDate = dateStr.split(" to ")[1];
+                }
+                else{
+                  selectedStartDate = dateStr
+                  selectedEndDate = dateStr
+                }
+            },
+        });
+    });
+
+    function filterByDate() {
+        if (selectedStartDate && selectedEndDate) {
+            window.location.href = `/admin/sales-report-range?startDate=${selectedStartDate}&endDate=${selectedEndDate}`;
+        // } else {
+        //     alert('Please select a date range first.');
+        }
+    }
+</script>
+
+<%- include('../layouts/footer.ejs') -%>

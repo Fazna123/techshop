@@ -1,0 +1,172 @@
+<%- include('../layouts/header.ejs') -%>
+
+<%- include('../layouts/adminheader.ejs') -%>
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow-x: auto;
+        /* Enable horizontal scroll on smaller screens */
+        margin-left: 0px; /* Adjust the left margin */
+        margin-right: 0px; /*Adjust the right margin */ 
+    }
+
+    th,
+    td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        /* Ensure header is on top with a white background */
+    }
+
+    /* Define responsive font sizes for better readability on smaller screens */
+    @media (max-width: 768px) {
+        table {
+            font-size: 12px;
+            /* Adjust font size as needed */
+        }
+
+        th {
+            display: none;
+            /* Hide thead on small screens */
+        }
+
+        td {
+            display: block;
+            /* Display td as block elements on small screens */
+            width: 100%;
+        }
+        button.stext-101 {
+            font-size:x-small;
+            width:100%;
+        }
+
+        button.stext-101:hover {
+            background-color: #e74c3c; /* Change button color on hover */
+        }
+    
+    }
+</style>
+
+<!-- <section class="bg0 p-t-104 p-b-116"> -->
+<div class="col-lg-10 col-md-12">
+    <div class="container-fluid">
+        <div class="d-flex flex-grow-1" style="display: flex; justify-content: center; align-items: center;">
+            <div class="size-210 bor10 p-t-55 p-b-70 w-full-md" style="flex: 1; margin-left: 10%; margin-right: 10%;">
+
+            
+
+            <button class="stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" style="flex-shrink: 0; width:30%; margin-left:30%;">
+                <a href="/admin/new-coupon" style="text-decoration: none; color: white;">Add New Coupon</a>
+            </button>
+            <br><br>
+
+
+            <form class="py-3 px-3" width="100%">
+                <div class="bor8" style="display: flex; flex-direction: row; width:80%; margin-left: 10%; margin-right: 10%;">
+                    <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" placeholder="Search User" name="search">
+                    <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="submit" value="Search" style="width:15%; background-color: rgb(209, 207, 207);">
+                </div>
+
+            </form>
+
+        <div class="overflow-x:auto">
+            <table class="table table-striped mt-5" width="30%" style="flex: 1;width:100%; background-color:white;border: 1px solid #cecccc;">
+
+                <tr style="background-color: rgba(209, 184, 184, 0.664); color: maroon;">
+                    <th class="serial">SNo.</th>
+                    <th>Coupon Code</th>
+                    <th>Discount(%)</th>
+                    <th>Min Purchase Amount</th>
+                    <th>Max Discount Amount</th>
+                    <th>Created Date</th>
+                    <th>Expiry Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                    
+                </tr>
+
+                <%
+                    if(coupons.length>0){
+                        for(let i=0;i< coupons.length;i++){
+                            %>
+                            <tr>
+                                <td style="padding-left: 1.5%;"><%= i+1 %></td>
+                                <td><%= coupons[i].code %></td>
+                                <td><%= coupons[i].discount %></td>
+                                <td><%= coupons[i].minPurchaseAmt %></td>
+                                <td><%= coupons[i].maxDeduction %></td>
+                                <td>
+                                    <%= new Date(coupons[i].createdDate).toLocaleDateString('en-US', {
+                                        year: 'numeric',
+                                        month: 'short',
+                                        day: 'numeric',
+                                      }) %>
+                                </td>
+                                <td>
+                                    <%= new Date(coupons[i].expiryDate).toLocaleDateString('en-US', {
+                                        year: 'numeric',
+                                        month: 'short',
+                                        day: 'numeric',
+                                      }) %>
+                                </td>
+                                
+                                <td><%
+                                    if((new Date() <= new Date(coupons[i].expiryDate))){
+                                        %>
+                                            <p style="color:green">Active</p>
+                                        
+                                        <%
+                                    }else{
+                                        %>
+                                            <p style="color:red">Expired</p>
+                                        <%
+                                    }
+                                    %>
+                                </td>
+
+                                    <td>
+                                        <a href="/admin/edit-coupon?id=<%=coupons[i]._id%>" style="color:blue;text-decoration: underline;">Edit</a>
+                                        <a href="/admin/block-coupon?id=<%=coupons[i]._id%>" style="color:blue;text-decoration: underline;">Block</a>
+                                        <a href="/admin/delete-coupon?id=<%=coupons[i]._id%>" style="color:blue;text-decoration: underline;">Delete</a>
+                                    </td>
+                            </tr>
+                            <%
+                        }
+                    %>
+
+
+
+                    <%
+                    }else{
+                        %>
+                        <tr>
+                            <td colspan="5">Users Not Found</td>
+                        </tr>
+                        <%
+                    }
+                    %>
+
+            </table>
+        </div>
+
+            <div class="container" style="display: flex; justify-content: space-between;"></div>
+
+                <a href="/admin/home" style="color:maroon; justify-self: end; text-decoration: underline;">Return Home</a>
+            </div>
+
+
+
+        </div>
+ 
+    </div>
+</div>
+</section>	
+<%- include('../layouts/footer.ejs') -%>

@@ -1,0 +1,83 @@
+<%- include('../layouts/header.ejs') -%>
+
+<!-- <section class="bg-img1 txt-center p-lr-15 p-tb-50" style="background-color:rgba(128, 0, 0, 0.521);">
+  <h2 class="ltext-105 cl0 txt-center">
+    OTP Verification
+  </h2>
+</section>	 -->
+
+
+<section class="bg0 p-t-50 p-b-116">
+  <div class="container" style="height: 100vh;">
+      <div class="flex-w flex-tr" style="display: flex; justify-content: center; align-items: center; margin: auto;">
+          <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md" style="background-color: rgba(209, 184, 184, 0.664); margin-top: 10%;">
+            
+            <h4 class="mtext-105 cl2 txt-center p-b-30">
+              Please enter the OTP sent to your mail
+            </h4>  
+            
+
+            <form action="/verify" method="POST">
+
+              <!-- <div class="bor8 m-b-20 how-pos4-parent"> -->
+                <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="hidden" name="email" value="<%= email %>">
+              <!-- </div> -->
+
+              <div class="bor8 m-b-20 how-pos4-parent">
+                <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="otp" placeholder="Enter OTP" required>
+              </div>
+                       
+      
+              <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit" value="Register" id="myButton123">
+                Verify OTP
+              </button>          
+    
+            </form>
+
+            <br>
+
+            <div id="otpButtonContainer" style="display: flex; flex-direction: column; align-items: center; justify-content: center; ">
+
+              <div class="size-212 p-t-2">
+                <button class="flex-c-m stext-101 cl13 size-121 bg10 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit" id="myButton">
+                    <a href="/verification" style="color:white">Resend OTP</a>
+                </button>
+
+              </div>
+              
+            </div>
+          
+            <p id="countdown">Time remaining: <span id="timer">60</span> seconds</p>
+
+          </div>
+        
+          
+          
+      </div>
+  </div>
+</section>	
+  <script>
+    let seconds = 20;
+    const countdown = document.getElementById('timer');
+    const button = document.getElementById('myButton');
+    const button1 = document.getElementById('myButton123');
+    const updateTimer = () => {
+      countdown.textContent = seconds;
+      seconds--;
+      if (seconds < 0) {
+        clearInterval(interval);
+        countdown.textContent = 'Time expired';
+        
+        button.style.display = 'block';
+        button1.style.display = 'none';
+        document.getElementById(otpObject.id).textContent = otpObject.otp;
+        otpObject.otp = 0
+        
+      }
+    };
+
+    const interval = setInterval(updateTimer, 1000);
+
+   </script>
+
+<%- include('../layouts/footer.ejs') -%>

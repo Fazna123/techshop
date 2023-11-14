@@ -1,0 +1,208 @@
+
+
+<%- include('../layouts/adminheader.ejs') -%>
+
+<!-- <section class="bg-img1 txt-center p-lr-15 p-tb-50" style="background-color:rgba(128, 0, 0, 0.521);">
+    <h3 class="ltext-105 cl0 txt-center">
+        Product Management
+    </h3>
+</section>	 -->
+
+<!-- <section class="bg0 p-t-104 p-b-116"> -->
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow-x: auto;
+            /* Enable horizontal scroll on smaller screens */
+            margin-left: 0px; /* Adjust the left margin */
+            margin-right: 0px; /*Adjust the right margin */ 
+        }
+    
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    
+        th {
+            position: sticky;
+            top: 0;
+            background-color: #fff;
+            /* Ensure header is on top with a white background */
+        }
+    
+        /* Define responsive font sizes for better readability on smaller screens */
+        @media (max-width: 768px) {
+            table {
+                font-size: 12px;
+                /* Adjust font size as needed */
+            }
+    
+            th {
+                display: none;
+                /* Hide thead on small screens */
+            }
+    
+            td {
+                display: block;
+                /* Display td as block elements on small screens */
+                width: 100%;
+            }
+            button.stext-101 {
+                font-size:x-small;
+                width:100%;
+            }
+    
+            button.stext-101:hover {
+                background-color: #e74c3c; /* Change button color on hover */
+            }
+        }
+    </style>
+    <div class="col-lg-10 col-md-12">
+
+        
+    <div class="container-fluid">
+        <div class="d-flex flex-grow-1" style="display: flex; justify-content: center; align-items: center;">
+            <div class="size-210 bor10 p-lr-5 p-t-55 p-b-70 p-lr-1-lg w-full-md" style="flex: 1; margin-left: 5%; margin-right: 5%;">
+
+                
+            <button class="stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" style="flex-shrink: 0; width:30%; margin-left:30%;">
+                <a href="/admin/new-product" style="text-decoration: none; color: white;">Add New Product</a>
+            </button>
+            <br><br>
+
+
+            <form class="py-3 px-3" width="100%">
+                <div class="bor8" style="display: flex; flex-direction: row; width:80%; margin-left: 10%; margin-right: 10%;">
+                    <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" placeholder="Search User" name="search">
+                    <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="submit" value="Search" style="width:15%; background-color: rgb(209, 207, 207);">
+                </div>
+
+            </form>
+
+        <div class="overflow-x:auto">
+            <table class="table table-striped mt-5" width="30%" style="flex: 1;width:100%; background-color:white;border: 1px solid #cecccc;">
+
+                <tr style="background-color: rgba(209, 184, 184, 0.664); color: maroon;">
+                    <!-- <th class="serial">SNo.</th> -->
+                    <th>Name</th>
+                    <th>Category</th>                    
+                    <th>Brand</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Featured</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+
+                <%
+                    if(products.length>0){
+                        for(let i=0;i<products.length;i++){
+                            %>
+                            <tr>
+                                <!-- <td style="padding-left: 1.5%;"><%= i+1 %></td> -->
+                                <td><%= products[i].name %></td>
+                                <td><%= products[i].category %></td>                                
+                                <td><%= products[i].brand %></td>
+                                <td><%= products[i].description %></td>
+                                <td>
+                                    <div class="image-grid" style="display: grid; grid-template-columns: repeat(2, minmax(80px, 80px));grid-auto-rows: minmax(80px, 80px); gap: 5px;">
+                                    <!-- <div class="container space-between" style="max-width: 100px;display: flex; flex-direction: row; flex-wrap: wrap;"> -->
+                                    <%
+                                    if (products[i].image && products[i].image.length > 0) {
+                                        products[i].image.forEach(image => {
+                                            %>
+                                            
+                                                <img style="display: block; width:100%; height:100%" src="/productImages/<%= image %>" alt="<%= image %>">
+                                        
+                                            <%
+                                        });
+                                    } else {
+                                        %>
+                                        <p>No images available</p>
+                                        <%
+                                    }
+                                    %>
+                                    </div>
+                                </td>
+                                <td><%= products[i].price%></td>
+                                <td><%= products[i].quantity%></td>
+
+                                <td><%
+                                    if(products[i].is_featured == 0){
+                                        %>
+                                            <p>Not Featured</p>
+                                        
+                                        <%
+                                    }else{
+                                        %>
+                                            <p style="color:red">Featured</p>
+                                        <%
+                                    }
+                                    %>
+                                </td>
+                                <td><%
+                                    if(products[i].is_blocked == 0){
+                                        %>
+                                            <p style="color:green">Active</p>
+                                        
+                                        <%
+                                    }else{
+                                        %>
+                                            <p style="color:red">Blocked</p>
+                                        <%
+                                    }
+                                    %>
+                                </td>
+
+                                <td>
+                                    <a style="color:blue" href="/admin/edit-product?id=<%=products[i]._id%>">Edit</a>
+                                    <a style="color:blue" href="/admin/block-product?id=<%=products[i]._id%>">Block</a>
+                                    <a style="color:blue" href="/admin/delete-product?id=<%=products[i]._id%>">Delete</a>
+                                </td>
+                            </tr>
+                            <%
+                        }
+                    %>
+
+
+
+                    <%
+                    }else{
+                        %>
+                        <tr>
+                            <td colspan="5">Products Not Found</td>
+                        </tr>
+                        <%
+                    }
+                    %>
+
+            </table>
+        </div>
+
+            <div class="container" style="display: flex; justify-content: space-between;"></div>
+                <%
+                    for(let j=1;j<=totalPages;j++){
+                        %>
+                            <a href="?page=<%= j %>" style="color:maroon;"><%= j %></a>
+                        <%
+                    }
+
+                %>
+
+                <a href="/admin/dashboard" style="color:maroon; justify-self: end; text-decoration: underline;">Return Home</a>
+            </div>
+
+
+
+        </div>
+ 
+    </div>
+</div>
+</section>	
+<%- include('../layouts/footer.ejs') -%>

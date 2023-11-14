@@ -1,0 +1,574 @@
+<%- include('../layouts/header.ejs') -%>
+
+  <%- include('../layouts/userheader.ejs') -%>
+
+  
+
+    <section class="bg0 p-t-104 p-b-116">
+      <form id="checkoutForm" action="/checkout" method="post">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4 bor22" style="background-color: rgba(209, 184, 184, 0.664);">
+              <div class="p-b-50" style="width:max-content">
+                <h4 class="mtext-105 cl2 p-b-30 p-t-20 text-center">
+                  Select Address
+                </h4>
+
+                <table class="table table-bordered table-striped" style="background-color: white; color: maroon;">
+                  <% if (address && address.length> 0) { %>
+                    <% for (let i=0; i < address.length; i++) { %>
+                      <tr>
+                        <td>
+                          <input type="radio" name="selectedAddress" value="<%= address[i]._id %>" checked>
+                        </td>
+                        <td>
+                          <%= 'Address(' + address[i].addressType + ')' %>
+                        </td>
+                        <td>
+                          <%= address[i].name %><br>
+                            <%= address[i].addressLine %><br>
+                              <%= address[i].street %><br>
+                                <%= address[i].city %><br>
+                                  <%= address[i].state %><br>
+                                    <%= address[i].pin %><br>
+                        </td>
+                        <td>
+                          <a style="color:blue;text-decoration: underline;"
+                            href="/edit-address?id=<%=address[i]._id%>">Edit</a>
+                        </td>
+                      </tr>
+                      <% } %>
+                        <% } else { %>
+                          <tr>
+                            <td colspan="2">No addresses available.</td>
+                          </tr>
+                          <% } %>
+                </table>
+
+                <a href="/add-address"
+                  class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
+                  Add Another Address
+                </a>
+              </div>
+            </div>
+
+
+
+
+
+            <div class="col-md-4 bor22" style="background-color: rgba(209, 184, 184, 0.664);">
+              <div class="p-b-50" style="width: 100%; margin-left: 0;">
+
+                <h4 class="mtext-105 cl2 p-b-30 p-t-20 text-center">
+                  Order Summary
+                </h4>
+
+                <div class="container m-r-0">
+                  <ul class="list-group">
+
+
+                    <% if (cart.length == 0){%>
+                      <script>
+                          window.alert('Your cart is empty. Please add items to your cart before proceeding.');
+                      </script>
+                    <%}%>
+                    
+                    <% if (cart && cart.length> 0) {
+                      for (let i = 0; i < cart.length; i++) { %>
+                        <li class="list-group-item" style="width: 100%;">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <span class="stext-110 cl2">
+                                <%= cart[i].name %>
+                              </span>
+                            </div>
+                            <div class="col-md-4">
+                              <span class="mtext-110 cl2">
+                                <%= cart[i].quantity %>
+                              </span>
+                            </div>
+                            <div class="col-md-4">
+                              <span class="mtext-110 cl2">
+                                <%= cart[i].subtotal %>
+                              </span>
+                            </div>
+                          </div>
+                        </li>
+                        <% } } else { %>
+                          <li class="list-group-item">No items in the cart.</li>
+                          <% } %>
+                  </ul>
+                </div>
+
+                <div class="flex-w flex-t bor12 p-b-13 m-t-40" style="width: 100%;">
+                  <div class="size-208 p-l-20">
+                    <span class="stext-110 cl2">
+                      Total :
+                    </span>
+                  </div>
+                  <div class="size-209 p-l-20">
+                    <h6 id="subtotal" class="mtext-110 cl2">
+                      <%= '₹' + subtotal %>
+
+                    </h6>
+                  </div>
+                </div>
+                <div class="flex-w flex-t bor12 p-tb-13" style="width: 100%;">
+                  <div class="size-208 p-l-20">
+                    <span class="stext-110 cl2">
+                      Coupon Discount :
+                    </span>
+                  </div>
+                  <div class="size-209 p-l-20">
+                    <span id="couponDiscount" class="mtext-110 cl2">
+                      ₹ 0/-
+                    </span>
+                  </div>
+                </div>
+
+                <div class="flex-w flex-t bor12 p-tb-13" style="width: 100%;">
+                  <div class="size-208 p-l-20">
+                    <span class="stext-110 cl2">
+                      Shipping :
+                    </span>
+                  </div>
+                  <div class="size-209 p-l-20">
+                    <span class="mtext-110 cl2">
+                      ₹ 100/-
+                    </span>
+                  </div>
+                </div>
+
+                <div class="flex-w flex-t p-t-27 p-b-33" style="width: 100%;">
+                  <div class="size-208 p-l-20">
+                    <h6 class="mtext-101 cl2">
+                      Net Total :
+                    </h6>
+                  </div>
+                  <div class="size-209 p-t-1">
+                    <span id="total" class="mtext-110 cl2 p-l-20">
+                      <%= '₹' + total %>
+
+                    </span>
+                  </div>
+                </div>
+
+                <div class="flex-w flex-m m-r-20 m-tb-5">
+                  <div class="m-b-10 how-pos4-parent">
+                    <select class="stext-111 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" id="couponEntered"
+                      name="couponEntered">
+                      <option disabled selected value="">Coupon code</option>
+                      <% for (const coupon of coupons) { %>
+                        <option value="<%= coupon._id %>">
+                          <%= coupon.code %>
+                        </option>
+                        <% } %>
+                    </select>
+                  </div>
+
+                  <a href="#" id="applyCouponButton"
+                    class="flex-c-m stext-101 cl0 size-118 bg3 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+                    Apply coupon
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 bor22" style="background-color: rgba(209, 184, 184, 0.664);">
+              <div class="p-b-50">
+                <h4 class="mtext-105 cl2 p-b-30 p-t-20 text-center">
+                  Select Payment Method
+                </h4>
+                <div class="form-check p-l-20">
+                  <input class="form-check-input" type="radio" name="paymentMethod" id="cod" value="COD" checked>
+                  <label class="form-check-label cl2" for="cod">
+                    Cash on Delivery (COD)
+                  </label>
+                </div>
+                <div class="form-check p-l-20">
+                  <input class="form-check-input" type="radio" name="paymentMethod" id="razorpay" value="razorpay">
+                  <label class="form-check-label cl2" for="razorpay">
+                    Razorpay
+                  </label>
+                </div>
+                <div class="form-check p-l-20">
+                  <input class="form-check-input" type="radio" name="paymentMethod" id="wallet" value="wallet">
+                  <label class="form-check-label cl2" for="wallet">
+                    wallet
+                  </label>
+                </div>
+
+              </div>
+
+              <input id="discountCoupon" type="hidden" name="discountAmount" value="0">
+
+
+              <input id="subtotal" type="hidden" name="subtotalBeforeDiscount" value="<%= subtotal %>">
+              <input type="hidden" id="total" name="totalBeforeDiscount" value="<%= total %>">
+
+              <input id="subtotalInput" type="hidden" name="subtotal" value="<%= subtotal %>">
+              <input id="totalInput" type="hidden" name="total" value="<%= total %>">
+              <button id="placeOrder"
+                class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer m-t-50" type="submit"
+                value="placeorder">
+                Place Order
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </form>
+      <div class="container" style="display: flex; justify-content: space-between;">
+        <a href="/cart" style="color:maroon">Back</a>
+      </div>
+    </section>
+
+
+    <!-- <% if (cart && cart.length === 0) { %>
+      <script>
+        swal('Your cart is empty. Please add items to your cart before proceeding.');
+      </script>
+      <% } %> -->
+      
+
+    <script>
+      console.log('jquery is loaded')
+
+      
+      
+      document.getElementById('applyCouponButton').addEventListener('click', async function (event) {
+        event.preventDefault();
+
+        const selectedCouponId = document.getElementById('couponEntered').value;
+        console.log('selectedcoupon:', selectedCouponId);
+        if (selectedCouponId) {
+
+          await applyCoupon(selectedCouponId);
+        } else {
+          alert('Please select a coupon.');
+        }
+      });
+
+      function applyCoupon(couponId) {
+        console.log('function is called');
+
+        $.ajax({
+          type: 'POST',
+          url: `/apply-coupon`,
+          data: { couponId: couponId },
+          dataType: "json",
+          success: function (response) {
+            console.log('AJAX request succeeded');
+
+            if (response.message) {
+              console.log('Message block executed');
+
+              swal({
+                title: "Error!",
+                text: response.message,
+                icon: "error",
+              });
+            } else {
+              document.getElementById('subtotal').innerText = '₹' + response.subtotal;
+              document.getElementById('couponDiscount').innerText = '₹' + response.couponDiscount;
+              document.getElementById('total').innerText = '₹' + response.total;
+
+              document.getElementById('subtotalInput').value = response.subtotal;
+              document.getElementById('discountCoupon').value = response.couponDiscount;
+              document.getElementById('totalInput').value = response.total;
+              console.log('response', response.subtotal, response.total, response.couponDiscount);
+            }
+          },
+          error: function (error) {
+            console.log('Error applying coupon:', error);
+          }
+        });
+      };
+    </script>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+    <script>
+
+
+      document.getElementById('placeOrder').addEventListener('click', function (event) {
+        event.preventDefault();
+        console.log('Place Order jquery is loaded');
+        
+
+
+        const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+        if (paymentMethod === 'razorpay') {
+          console.log('payment method is razorpay')
+
+          $.ajax({
+            type: 'POST',
+            url: '/payment/create-order',
+            data: $('#checkoutForm').serialize(),
+            dataType: 'json',
+            success: function (response) {
+              console.log('AJAX request to Razorpay route succeeded');
+              var options = {
+                "key": response.key_id,
+                "amount": total * 100,
+                "currency": "INR",
+
+                "name": "TechShoppie",
+                "description": "Test Transaction",
+                "image": "/images/icons/redlogo.webp",
+
+                "order_id": response.order_id,
+                "handler": function (response) {
+                  alert('payment succeeded in razorpay')
+
+                  window.location.href = '/order-confirm'
+                },
+                "prefill": {
+                  "contact": response.contact,
+                  "name": response.name,
+                  "email": response.email
+                },
+                "notes": {
+                  "description": "Test Payment"
+                },
+                "themes": {
+                  "color": "#00000"
+                }
+              };
+              var rzp1 = new Razorpay(options);
+              rzp1.open();
+
+            },
+
+            error: function (error) {
+              console.log('Error making AJAX request to Razorpay route:', error);
+            }
+          });
+
+
+        } else if (paymentMethod === 'wallet') {
+          console.log('wallet');
+          $.ajax({
+            type: 'POST',
+            url: '/payment/wallet-route',
+            data: $('#checkoutForm').serialize(),
+            dataType: 'json',
+            success: function (response) {
+              console.log('AJAX request to wallet route succeeded');
+
+              if (response.message === 'Your wallet is Empty') {
+                console.log('Message block executed');
+                swal({
+                  title: response.message,
+                  text: "Choose any other payment option",
+                  icon: "warning",
+                });
+              } else if (response.method == `wallet`) {
+                swal({
+                  title: response.message,
+                  text: "Do you want to pay using the wallet",
+                  icon: " ",
+                  buttons: true,
+                  dangerMode: true,
+                }).then((payWallet) => {
+                  if (payWallet) {
+                    document.getElementsByTagName('paymentMethod').value = 'wallet';
+                    $.ajax({
+                    type: 'POST',
+                    url: '/payment/create-order',
+                    data: $('#checkoutForm').serialize(),
+                    dataType: 'json',
+                    success: function (response) {
+                      console.log(`AJAX request to wallet route succeeded`);
+                      if (response.message) {
+                        console.log('Message block executed');
+                        swal({
+                          title: response.message,
+                          text: "",
+                          icon: " ",
+                        });
+                        window.location.href = '/order-confirm';
+                      }
+                    },
+                    error: function (error) {
+                      console.log(`Error making AJAX request to ${selectedPaymentMethod} route:`, error);
+                    },
+                  });
+                  } else {
+                    swal('Choose another payment method');
+                  }
+                });
+              } else {
+                swal({
+                  title: response.message,
+                  text: "",
+                  icon: "",
+                  buttons: ["Razorpay","COD"],
+                  dangerMode: true,
+                }).then((selectedPaymentMethod) => {
+
+                  if(selectedPaymentMethod){
+
+                  document.getElementsByTagName('paymentMethod').value = 'COD';
+                  document.getElementById('totalInput').value = response.newBalance;
+                  console.log('cod wallet');
+                  console.log('balance is', response.newBalance);
+                  $.ajax({
+                    type: 'POST',
+                    url: '/payment/cod-wallet',
+                    data: $('#checkoutForm').serialize(),
+                    dataType: 'json',
+                    success: function (response) {
+                      console.log(`AJAX request to ${selectedPaymentMethod} route succeeded`);
+                      if (response.message) {
+                        console.log('Message block executed');
+                        swal({
+                          title: response.message,
+                          text: "",
+                          icon: " ",
+                        });
+                        window.location.href = '/order-confirm';
+                      }
+                    },
+                    error: function (error) {
+                      console.log(`Error making AJAX request to ${selectedPaymentMethod} route:`, error);
+                    },
+                  });
+                }
+                else {
+                  document.getElementsByTagName('paymentMethod').value = 'razorpay';
+                    document.getElementById('totalInput').value = response.newBalance;
+                    console.log('razorpay wallet');
+                    console.log('balance is', response.newBalance);
+
+                    $.ajax({
+                      type: 'POST',
+                      url: '/payment/razorpay-wallet',
+                      data: $('#checkoutForm').serialize(),
+                      dataType: 'json',
+                      success: function (response) {
+                        console.log('AJAX request to Razorpay route succeeded');
+                        var options = {
+                          "key": response.key_id,
+                          "amount": total * 100,
+                          "currency": "INR",
+
+                          "name": "TechShoppie",
+                          "description": "Test Transaction",
+                          "image": "/images/icons/redlogo.webp",
+
+                          "order_id": response.order_id,
+                          "handler": function (response) {
+                            alert('payment succeeded in razorpay')
+
+                            window.location.href = '/order-confirm'
+                          },
+                          "prefill": {
+                            "contact": response.contact,
+                            "name": response.name,
+                            "email": response.email
+                          },
+                          "notes": {
+                            "description": "Test Payment"
+                          },
+                          "themes": {
+                            "color": "#00000"
+                          }
+                        };
+                        var rzp1 = new Razorpay(options);
+                        rzp1.open();
+
+                      },
+
+            error: function (error) {
+              console.log('Error making AJAX request to Razorpay route:', error);
+            }
+          });
+
+                }
+
+
+
+
+                });
+
+
+
+              }
+            },
+            error: function (error) {
+              console.log('Error making AJAX request to wallet route:', error);
+            }
+          });
+        
+          // } else if (paymentMethod === 'COD') {
+          //   console.log('COD');
+          //   handlePayment('COD');
+          // } else if (paymentMethod === 'razorpay') {
+          //   console.log('razorpay');
+          //   handlePayment('razorpay');
+          // }
+
+          function handlePayment(selectedPaymentMethod) {
+            document.getElementById('totalInput').value = response.newBalance;
+            console.log(selectedPaymentMethod);
+            console.log('balance is', response.newBalance);
+            $.ajax({
+              type: 'POST',
+              url: '/payment/create-order',
+              data: $('#checkoutForm').serialize(),
+              dataType: 'json',
+              success: function (response) {
+                console.log(`AJAX request to ${selectedPaymentMethod} route succeeded`);
+                if (response.message) {
+                  console.log('Message block executed');
+                  swal({
+                    title: response.message,
+                    text: "",
+                    icon: " ",
+                  });
+                  window.location.href = '/order-confirm';
+                }
+              },
+              error: function (error) {
+                console.log(`Error making AJAX request to ${selectedPaymentMethod} route:`, error);
+              },
+            });
+          }
+        }
+
+        else if (paymentMethod === 'COD') {
+          console.log('cod')
+          $.ajax({
+            type: 'POST',
+            url: '/payment/create-order',
+            data: $('#checkoutForm').serialize(),
+            dataType: 'json',
+            success: function (response) {
+              console.log('AJAX request to COD route succeeded');
+              if (response.message) {
+                console.log('Message block executed');
+
+                swal({
+                  title: response.message,
+                  text: " ",
+                  icon: " "
+                });
+                window.location.href = '/order-confirm';
+              } else {
+                window.location.href = '/order-confirm';
+              }
+            },
+            error: function (error) {
+              console.log('Error making AJAX request to COD route:', error);
+            }
+          });
+        }
+      })
+        </script>
+
+
+    <%- include('../layouts/userfooter.ejs') -%>
+      <%- include('../layouts/footer.ejs') -%>

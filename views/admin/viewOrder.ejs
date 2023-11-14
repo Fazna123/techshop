@@ -1,0 +1,133 @@
+<%- include('../layouts/adminheader.ejs') -%>
+
+
+        <section class="p-t-50 p-b-85">
+            <div class="container">
+                <div class="row">
+                    
+                            
+                            <a href="/admin/order" style="color:maroon; text-decoration: underline;text-align: end;">Back to Orders</a>
+                            
+
+                                <table class="table table-striped mt-5" width="100%"
+                                    style="background-color: white; border: 1px solid #cecccc;">
+                                    <tr style="background-color: rgba(209, 184, 184, 0.664); color: maroon;">
+                                        <th class="serial">SNo.</th>
+                                        <th>Product</th>
+                                        <th>Product Name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                    </tr>
+                                    <% if (products.length> 0) { %>
+                                        <% for (let i=0; i < products.length; i++) { %>
+                                            <tr>
+                                                <td style="padding-left: 1.5%;">
+                                                    <%= i + 1 %>
+                                                </td>
+                                                <td class="column-1">
+                                                    <div class="how-itemcart1">
+                                                        <% if (products[i].product.image.length> 0) { %>
+                                                            <img src="/productImages/<%= products[i].product.image[0] %>"
+                                                                alt="Product Image">
+                                                            <% } else { %>
+                                                                <p>No images available for this product.</p>
+                                                                <% } %>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <%= products[i].product.name %>
+                                                </td>
+                                                <td>
+                                                    <%= products[i].product.price %>
+                                                </td>
+                                                <td>
+                                                    <%= products[i].quantity %>
+                                                </td>
+                                                <td>
+                                                    <%= products[i].product.price * products[i].quantity %>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                                <% } else { %>
+                                                    <tr>
+                                                        <td colspan="5">Products Not Found</td>
+                                                    </tr>
+                                                    <% } %>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col-sm-10 col-lg-10 m-b-50" style="text-align: end;">
+                        
+                            <% if(order.walletDiscount){%>
+                                <div class="flex-w bor12 p-b-5">
+                                    <div class="size-208">
+                                        <span class="stext-110 cl2">
+                                            Wallet Redeemed Amount:
+                                        </span>
+                                    </div>
+
+                                    <div class="size-209">
+                                        <span id="nettotal" class="mtext-110 cl2">
+                                            <%= order.walletDiscount %>
+                                        </span>
+                                    </div>
+                                </div>
+                            <%}%>
+
+                            <div class="flex-w bor12 p-b-5">
+                                <div class="size-208">
+                                    <span class="stext-110 cl2">
+                                        Coupon Discount:
+                                    </span>
+                                </div>
+
+                                <div class="size-209">
+                                    <span id="nettotal" class="mtext-110 cl2">
+                                        <%= order.discountAmt %>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex-w bor12 p-b-5">
+                                <div class="size-208">
+                                    <span class="stext-110 cl2">
+                                        Shipping:
+                                    </span>
+                                </div>
+
+                                <div class="size-209">
+                                    <span id="nettotal" class="mtext-110 cl2">
+                                        100
+                                    </span>
+                                </div>
+                            </div>
+                            <hr style="height: 1px; background-color: rgb(161, 32, 32); margin-left: 20%;">
+
+
+
+                            <div class="flex-w flex-t p-t-5 p-b-5">
+                                <div class="size-208">
+                                    <span class="mtext-101 cl2">
+                                        Total:
+                                    </span>
+                                </div>
+
+                                <div class="size-209 p-t-1">
+                                    <span id="total" class="mtext-110 cl2">
+                                        <%= order.amountPayable %>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <%- include('../layouts/adminfooter.ejs') -%>
+            

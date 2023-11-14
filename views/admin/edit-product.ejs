@@ -1,0 +1,184 @@
+<!-- <%- include('../layouts/header.ejs') -%> -->
+
+<%- include('../layouts/adminheader.ejs') -%>
+
+
+<!-- <section class="bg0 p-t-104 p-b-116"> -->
+    <div class="container">
+        <div class="flex-w flex-tr" style="display: flex; justify-content: center; align-items: center; margin: auto;">
+            <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md" style="background-color: rgba(209, 184, 184, 0.664); margin-top: 10%;">
+            
+                <h4 class="mtext-105 cl2 txt-center p-b-10">
+                    Edit Product Details
+                </h4> 
+
+
+                <form action="" method="POST" enctype="multipart/form-data" onsubmit="setUpdatedImageIndex()">
+
+                    <div class="bor8 m-b-10 how-pos4-parent" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        
+                        <img id="image0" src="/productImages/<%= product.image[0] %>" width="150px" height="150px" alt="<%= product.image[0] %>" style="margin: auto; padding-top: 5%;">
+                        <br>
+                      
+                        <input id='productImage0' class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="file" name="productImage" class="text-center" accept="image/*" onchange="updateImage(0)" value="">
+                        <br>
+                        <% if (product.image[1]) { %>
+                        
+                        <img  id="image1" src="/productImages/<%= product.image[1] %>" width="150px" height="150px" alt="<%= product.image[1] %>" style="margin: auto; padding-top: 5%;">
+                        <br>
+                        <% } else { %>
+                            <span>No image available</span>
+                          <% } %>
+                        <input id="productImage1" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="file" name="productImage" class="text-center" accept="image/*" onchange="updateImage(1)" value="">
+                        <br>
+                        <% if (product.image[2]) { %>
+                        
+                        <img id="image2" src="/productImages/<%= product.image[2] %>" width="150px" height="150px" alt="<%= product.image[2] %>" style="margin: auto; padding-top: 5%;">
+                        <br>
+                        <% } else { %>
+                            <span>No image available</span>
+                          <% } %>
+                        <input id="productImage2" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="file" name="productImage" class="text-center" accept="image/*" onchange="updateImage(2)" value="">
+                        <br>
+                        <% if (product.image[3]) { %>
+                        
+                        <img id="image3" src="/productImages/<%= product.image[3] %>" width="150px" height="150px" alt="<%= product.image[3] %>" style="margin: auto; padding-top: 5%;">
+                        <br>
+                        <% } else { %>
+                            <span>No image available</span>
+                          <% } %>
+                        <input id="productImage3" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="file" name="productImage" class="text-center" accept="image/*" onchange="updateImage(3)" value="">
+
+                        <input type="hidden" name="product_id" value="<%=product._id%>">
+                    </div>
+
+                    <label for="name" class="stext-111">Edit Product Name:</label>
+                    <div class="bor8 m-b-10 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="name" type="name" name="name" placeholder="Enter name" value="<%=product.name%>" required>
+                    </div>
+
+                    <label for="category" class="stext-111">Choose Category:</label>
+                    <div class="bor8 m-b-10 how-pos4-parent">
+                        <select class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="category" name="category">
+                            <% for (const category of categories) { %>
+                              <option value="<%= category.name %>"><%= category.name %></option>
+                            <% } %>
+                          </select><br>
+                    </div>
+
+                    <!-- <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="subcategory" placeholder="Enter sub-category" value="<%=product.subcategory%>" required>
+                    </div> -->
+
+                    <label for="brand" class="stext-111">Edit Brand Name:</label>
+                    <div class="bor8 m-b-10 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="brand" type="text" name="brand" placeholder="Enter Brand Name" value="<%=product.brand%>" required>
+                    </div>
+
+                    <label for="description" class="stext-111">Edit Description:</label>
+                    <div class="bor8 m-b-10 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="description" type="text" name="description" placeholder="Enter Description" value="<%=product.description%>" required>
+                    </div>
+
+                    <label for="price" class="stext-111">Edit Price:</label>
+                    <div class="bor8 m-b-10 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="price" type="text" name="price" placeholder="Enter price" value="<%=product.price%>" required>
+                    </div>
+
+                    <label for="quantity" class="stext-111">Edit Quantity:</label>
+                    <div class="bor8 m-b-10 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="quantity" type="text" name="quantity" placeholder="Enter quantity" value="<%=product.quantity%>" required>
+                    </div>
+
+                    <div class="m-b-10 d-flex justify-content-between align-items-justify">
+                        <label>Featured</label>
+                        <input type="radio" name="featured" value="1" <% if(product.is_featured == 1){%> checked <% } %> >
+                        <label class="m-r-5">Not Featured</label>
+                        <input type="radio" name="featured" value="0" <% if(product.is_featured == 0){%> checked <% } %> >
+                    </div>
+
+                    <div class="m-b-20 d-flex justify-content-between align-items-justify">
+                        <label style="color:red">Blocked</label>
+                        <input type="radio" name="blocked" value="1" <% if(product.is_blocked == 1){%> checked <% } %> >
+                        <label style="color:green;">Active</label>
+                        <input type="radio" name="blocked" value="0" <% if(product.is_blocked == 0){%> checked <% } %> >
+                    </div>
+                                        
+                    <input type="hidden" name="id" value="<%=product._id%>">
+
+                    <input type="hidden" name="updatedImageIndex" id="updatedImageIndex" value="">
+
+
+                    <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit" value="Update Product">
+                        Update Product
+                    </button>
+                    
+                </form>
+
+
+                <div class="container" style="display: flex; justify-content: space-between;">
+                    <a href="/admin/productlist" style="color:maroon; text-decoration: underline;">Back</a>
+                </div>
+            
+
+            </div>
+ 
+        </div>
+    </div>
+</section>	
+
+<script>
+
+    let updatedImageIndex = null; // Variable to store the updated image index
+
+    function updateImage(imageNumber) {
+        updatedImageIndex = imageNumber; // Store the updated image index
+        const fileInput = document.getElementById('productImage' + imageNumber);
+
+
+        const file = fileInput ? fileInput.files[0] : null;
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const image = document.getElementById('image' + imageNumber);
+                if (image) {
+                    // Check if the imageNumber exceeds the current product image array length
+                    if (imageNumber < product.image.length) {
+                        // Replace image at the specified index
+                        product.image[imageNumber] = e.target.result;
+                    } else {
+                        // Add the image at the end of the array
+                        product.image.push(e.target.result);
+                    }
+
+                    image.src = e.target.result;
+                }
+                //image.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        }
+        else {
+            image.removeAttribute('src'); // Remove src attribute to make the image empty
+        }
+    }
+</script>
+
+<script>
+    function setUpdatedImageIndex() {
+        const updatedImageIndexInput = document.getElementById('updatedImageIndex');
+        updatedImageIndexInput.value = updatedImageIndex;
+    }
+</script>
+    
+
+
+<script>
+    document.getElementById('category').addEventListener('change', function () {
+      const selectedCategory = this.value;
+    })
+</script>
+
+<%- include('../layouts/footer.ejs') -%>
+

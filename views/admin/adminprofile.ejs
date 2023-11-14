@@ -1,0 +1,72 @@
+
+
+<%- include('../layouts/adminheader.ejs') -%>
+
+    
+    
+<!-- <section class="bg-img1 txt-center p-lr-15 p-tb-50" style="background-color:rgba(134, 30, 30, 0.521);">
+    <h3 class="ltext-105 cl0 txt-center p-t-2">
+        Admin Profile
+    </h3>
+</section> -->
+<div class="col-lg-10 col-md-12">
+
+
+<!-- <section class="bg0 p-t-104 p-b-116" style="height: 100vh;"> -->
+    <div class="container" style="height: 100vh;">
+        <div class="flex-w flex-tr" style="display: flex; justify-content: center; align-items: center; margin: auto;">
+            <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md" style="background-color: rgba(209, 184, 184, 0.664); margin-top: 10%;">
+
+            
+                <h4 class="mtext-105 cl2 txt-center p-b-30">
+                    Hi <%=admin.name%>
+                </h4> 
+                
+                <div class="m-b-20" style="display: flex; flex-direction: column; justify-content: center; align-items: center;"">
+                    <img src="/userImages/<%=admin.image%>" width="150px" height="80px" alt="<%= admin.image %>" style="margin: auto; padding-top: 5%;">
+                    <br>
+                </div>
+                
+                <table class="table table-bordered" width="30%" style="background-color: #e0c2c2; color:maroon">
+
+                    <tr>
+                        <td>Email</td>
+                        <td><%= admin.email%></td>
+                    </tr>
+                    <tr>
+                        <td>Mobile No.</td>
+                        <td><%= admin.mobile%></td>
+                    </tr>
+
+                </table>
+
+                <br><br>
+                <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit" value="Login id="logoutButton""> 
+                    <a href="/admin/logout" style="color: white;">Logout</a>
+                </button>
+
+                <br>
+
+                <div class="container" style="display: flex; justify-content: space-between;">
+                    <button><a href="/admin/dashboard" style="color:maroon">Dashboard</a></button>
+
+                    <button><a href="/admin/edit-profile?id=<%=admin._id%>" style="color:maroon; justify-self:end;;">Edit Profile</a></button>
+                </div>
+
+            <!-- <a class="btn rounded-pill" id="logoutButton" href="/admin/logout">Logout</a> -->
+
+
+
+
+
+
+
+
+
+
+        </div>
+ 
+    </div>
+</div>
+</section>	
+<%- include('../layouts/footer.ejs') -%>

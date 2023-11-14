@@ -1,0 +1,79 @@
+
+
+<%- include('../layouts/adminheader.ejs') -%>
+
+<!-- <section class="bg0 p-t-104 p-b-116"> -->
+    <div class="container">
+        <div class="flex-w flex-tr" style="display: flex; justify-content: center; align-items: center; margin: auto;">
+            <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md" style="background-color: rgba(209, 184, 184, 0.664); margin-top: 10%;">
+
+                
+                <h4 class="mtext-105 cl2 txt-center p-b-30">
+                    Enter Coupon Details
+                </h4>
+
+                <%
+                    if(typeof message !== 'undefined'){
+
+                        %>
+                        <div class="alert alert-warning" role="alert" id="invalidAlert">
+                            <h5><%= message%></h5>
+                        </div>
+                        <%
+
+                    }
+
+                %>   
+                <br>
+                <form action="/admin/new-coupon" method="post">
+
+                    <label class="stext-111" for="couponCode" class="stext-111">Enter Coupon Code:</label>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="couponCode" type="text" name="code" placeholder="Enter coupon code" required>
+                    </div>
+
+                    <label class="stext-111" for="discount">Discount Percentage:</label>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="discount" type="number" name="discount" placeholder="Enter discount percentage" required>
+                    </div>
+
+                    <label class="stext-111" for="minPurchaseAmt">Minimum Purchase Amount:</label>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="minPurchaseAmt" type="number" name="minPurchaseAmt" placeholder="Enter Minimum Purchase Amount to apply coupon" required>
+                    </div>
+
+                    <label class="stext-111" for="maxDeduction">Maximum Discount Amount:</label>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="maxDeduction" type="number" name="maxDeduction" placeholder="Enter Maximum Discount Amount in Coupon" required>
+                    </div>
+
+                    <label class="stext-111" for="expiryDate">Expiry Date:</label>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" id="expiryDate" type="date" name="expiryDate" placeholder="Enter expiry date" required>
+                    </div>
+
+                    
+                    <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit" value="Add coupon">
+                        Add Coupon
+                    </button>
+
+                </form>
+
+                <div class="container" style="display: flex; justify-content: space-between;">
+                    <a href="/admin/coupon" style="color:maroon">Back</a>
+                </div>
+
+
+                   
+            </div>
+ 
+        </div>
+    </div>
+</section>	
+
+
+
+
+<%- include('../layouts/footer.ejs') -%>
+
+

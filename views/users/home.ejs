@@ -1,0 +1,269 @@
+<%- include('../layouts/header.ejs') -%>
+
+
+<%- include(loggedIn ? '../layouts/userheader.ejs' : '../layouts/loginheader.ejs') %>
+
+
+
+
+
+<section class="section-slide">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <% if (banner && banner.length > 0) {
+                for (let i = 0; i < banner.length; i++) { %>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="<%= i %>" <% if (i === 0) { %> class="active" <% } %>></li>
+                <% }
+            } %>
+        </ol>
+
+        <div class="carousel-inner">
+            <% if (banner && banner.length > 0) {
+                for (let i = 0; i < banner.length; i++) { %>
+                    <div class="carousel-item <% if (i === 0) { %> active <% } %>">
+                        <div class="item-slick1 bg-overlay1"
+                            style="background-image: url('/productImages/<%= banner[i].image %>'); height: 50vh">
+                            <div class="container h-full">
+                                <div class="flex-col-c-m h-full p-t-100 p-b-60 respon5">
+                                    <div>
+                                        <span class="mtext-102 txt-center cl0 respon2">
+                                            
+                                        </span>
+                                    </div>
+
+                                    <div>
+                                        <h2 class="ltext-105 txt-center cl0 p-t-22 p-b-20 respon1">
+                                            <%= banner[i].title %>
+                                        </h2>
+                                    </div>
+
+                                    <div style="margin-bottom: 15%;">
+                                        <span class="mtext-101 txt-center cl0 p-b-20 respon2">
+                                            <%= banner[i].subtitle %>
+                                        </span>
+                                    </div>
+
+                                    <div>
+                                        <a href="<%= banner[i].url %>"
+                                            class="flex-c-m stext-118 cl0 size-101 bg3 bor1 hov-btn3 p-lr-15 trans-04">
+                                            Buy Now
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }
+            } %>
+        </div>
+
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</section>
+
+
+<section class="sec-banner bg0 p-t-95 p-b-55">
+    
+    <div class="container">
+        <div class="p-b-95">
+            <h3 class="ltext-105 cl2 txt-center respon1">
+                Our Products
+            </h3>
+        </div>
+
+        <div class="row">
+            <% if(categories.length>0){
+                for(let i=0; i< categories.length; i++){ %>
+                    <div class="col-md-6 col-lg-3 p-b-30 m-lr-auto">
+                        
+                        <div class="block1 wrap-pic-w">
+                            <div class="image-container" style="height: 200px;">
+                            <img src="/productImages/<%=categories[i].image%>" alt="/productImages/<%=categories[i].image%>" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <a href="/products?search=<%=categories[i].name%>" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+                                <div class="block1-txt-child1 flex-col-l">
+                                    <span class="block1-name ltext-102 trans-04 p-b-8">
+                                        <%=categories[i].name%>
+                                    </span>
+    
+                                    <span class="block1-info stext-102 trans-04">
+                                        
+                                    </span>
+                                </div>
+    
+                                <div class="block1-txt-child2 p-b-4 trans-05">
+                                    <div class="block1-link stext-101 cl0 trans-09">
+                                        Shop Now
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+            <% } }%>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="sec-product bg0 p-t-50 p-b-50">
+    <div class="container">
+        <div class="p-b-32">
+            <h3 class="ltext-105 cl2 txt-center respon1">
+                Best Sellers
+            </h3>
+        </div>
+
+        
+        <div class="tab01">
+            <div class="tab-content p-t-50">
+                
+                <div class="tab-pane fade show active" id="best-seller" role="tabpanel">
+                    
+                    <div class="wrap-slick2">
+                       
+                        <div class="slick2">
+                            <% if (products.length > 0) {
+                              for (let i = 0; i < products.length; i++) {
+                                const product = products[i];
+                                const hasDeal = product.offer_price !== undefined && product.offer_price !== 0;
+                            %>
+                                <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+                                  <div class="block2">
+                                    <div class="block2-pic hov-img0">
+                                      <% if (hasDeal) { %>
+                                        <div class="red-deal-tag" style="position: absolute; top: 0; left: 0; background-color: red; color: white; padding: 4px 8px; font-size: 14px; font-weight: bold;">New Deal!</div>
+                                      <% } %>
+                                      <img src="/productImages/<%= product.image[0] %>" alt="IMG-PRODUCT" style="width:full;height:full">
+                                      <a href="/product-detail?_id=<%= product._id %>"></a>
+                                      <a href="/product-detail?_id=<%= product._id %>" class="block2-btn flex-c-m stext-103 cl0 size-102 bg3 bor2 hov-btn3 p-lr-15 trans-04" style="font-weight: bold;">View Details</a>
+                                    </div>
+                                    <div class="block2-txt flex-w flex-t p-t-14">
+                                      <div class="block2-txt-child1 flex-col-l">
+                                        <a href="/product-detail?_id=<%= product._id %>" class="stext-118 cl2 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                          <%= product.name %>
+                                        </a>
+                                        <% if (hasDeal) { %>
+                                          <span class="stext-105 cl2" style="text-decoration: line-through;">
+                                            <%= '₹ ' + product.price + '/-' %>
+                                          </span>
+                                          <span class="stext-118 cl2">
+                                            <%= '₹ ' + product.offer_price + '/-' %>
+                                          </span>
+                                        <% } else { %>
+                                          <span class="stext-105 cl2">
+                                            <%= '₹ ' + product.price + '/-' %>
+                                          </span>
+                                        <% } %>
+                                      </div>
+                                      <div class="block2-txt-child2 flex-col-r p-t-3">
+                                        <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                          <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+                                          <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            <% } } %>
+                          </div>
+                          
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<section class="sec-product bg0 p-t-50 p-b-50">
+    <div class="container">
+        <div class="p-b-32">
+            <h3 class="ltext-105 cl2 txt-center respon1">
+                Our Brands
+            </h3>
+        </div>
+
+        
+        <div class="tab01">
+            <div class="tab-content p-tb-30">
+                
+                <div class="tab-pane fade show active" id="best-seller" role="tabpanel">
+                    
+                    <div class="wrap-slick2">
+                        <div class="slick2">
+
+                            <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15" style="justify-items: center;">
+                                <div class="block2 d-flex flex-inline" style="justify-content: space-between;">
+                                    <div class="block2-pic hov-img0">
+                                        <img src="/images/icons/apple.png" alt="APPLE" style="width:140px;height:140px;">
+                                    </div>
+                                    <div class="block2-pic hov-img0">
+                                        <img src="/images/icons/hp.png" alt="HP" style="width:140px;height:140px">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+                                <div class="block2 d-flex flex-inline" style="justify-content: space-between;">
+                                    <div class="block2-pic hov-img0">
+                                        <img src="/images/icons/samsung.png" alt="SAMSUNG" style="width:140px;height:140px">
+                                    </div>
+                                    <div class="block2-pic hov-img0">
+                                        <img src="/images/icons/lenovo.png" alt="LENOVO" style="width:140px;height:140px">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+                                <div class="block2 d-flex flex-inline" style="justify-content: space-between;">
+                                    <div class="block2-pic hov-img0">
+                                        <img src="/images/icons/oppo.png" alt="OPPO" style="width:140px;height:140px">
+                                    </div>
+                                    <div class="block2-pic hov-img0">
+                                        <img src="/images/icons/jbl.jpeg" alt="JBL" style="width:140px;height:140px">
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+                                <div class="block2 d-flex flex-inline" style="justify-content: space-between;">
+                                    <div class="block2-pic hov-img0">
+                                        <img src="/images/icons/asus.png" alt="ASUS" style="width:140px;height:140px">
+                                    </div>
+                                    <div class="block2-pic hov-img0">
+                                        <img src="/images/icons/dell.png" alt="DELL" style="width:140px;height:140px">
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+                                <div class="block2 d-flex flex-inline" style="justify-content: space-between;">
+                                    <div class="block2-pic hov-img0">
+                                        <img src="/images/icons/boat.png" alt="boAt" style="width:140px;height:140px">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+<%- include('../layouts/userfooter.ejs') -%>
+
+<%-include('../layouts/footer.ejs')-%>
