@@ -65,7 +65,7 @@ const sendOtpMail = async (name, email, user_id) => {
       from: process.env.emailUser,
       to: email,
       subject: "Verification mail",
-      html: `<p>Hii ${name} , your OTP is ${otpObject.otp}, please click here to enter<a href="http://127.0.0.1:3000/verify?id=${user_id}&email=${email}">OTP</a> recieved.</p>`,
+      html: `<p>Hii ${name} , your OTP is ${otpObject.otp}, please click here to enter<a href="http://www.techshoppie.in/verify?id=${user_id}&email=${email}">OTP</a> recieved.</p>`,
     };
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
@@ -133,7 +133,7 @@ const sendResetPasswordMail = async (name, email, token) => {
       html:
         "<p>Hii " +
         name +
-        ' , please click here to <a href="http://127.0.0.1:3000/forget-password?token=' +
+        ' , please click here to <a href="http://www.techshoppie.in/forget-password?token=' +
         token +
         '">Reset</a> your password.</p>',
     };
